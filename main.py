@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup
 import webbrowser
 import requests
 import json 
+from wotapi import WotAPI, REALM
+
+APPLICATION_ID = '104dcbb058cfe503c47eb27800beb0ec'
 
 url = "https://eu.wargaming.net/clans/wot/500066861/"
 targeted_language = "fr"
@@ -60,18 +63,8 @@ def isPlayerFrench(name):
     return isFrench
 
 def getPlayerIDfromName(name):
-    response = requests.get(f"https://worldoftanks.eu/fr/community/accounts/#wot&at_search={name}")
-    soup = BeautifulSoup(response.text, 'html.parser')
-    id = None
-    try:
-        lines = soup.find("script")
-        for line in lines:
-            
-            if name in line.get("href"):
-                id = line.split("/")[-2].split("-")[0]
-    except:
-        id = None
-    return id
+    wot = WotAPI(APPLICATION_ID, realm=REALM.eu)
+    return wot.get_account_id(name)
 
 def getNamefromID(id):
     response = requests.get(f"https://worldoftanks.eu/fr/community/accounts/{id}")
