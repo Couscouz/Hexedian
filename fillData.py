@@ -3,11 +3,27 @@ import os
 from bs4 import BeautifulSoup
 import webbrowser
 import requests
-import json 
-from wotapi import WotAPI, REALM
+import json
+import WotAPI
+#from wotapi import WotAPI, REALM
 
 APPLICATION_ID = '104dcbb058cfe503c47eb27800beb0ec'
 
+def readCSV(csvName):
+    with open(f"data/{csvName}.csv", newline='') as file:   
+        reader = csv.reader(file,delimiter=';')
+        data = list(reader)
+    return data
+
+def writeCSV(csvName,data):
+    with open(f"data/{csvName}.csv", "w") as file:
+        for line in data:
+            lineToWrite = ""
+            for value in line:
+                lineToWrite += value + ";"
+            file.write(f"{lineToWrite[:-1]}\n")
+    
+    
 def getClanIDbyName(name):
     
     # Obtain the account id
@@ -20,6 +36,10 @@ def getClanIDbyName(name):
     print(f"{name} id={id}")
     return id
 
+def getPlayerIDbyName(name):
+    response = requests.get(f"https://api.worldoftanks.eu/wot/account/list/?application_id=104dcbb058cfe503c47eb27800beb0ec&search=Couscouz")
+    js = json.loads(response.content)
+    print(js)
 
 def getPlayersOfClan(clanID):
     allP = []
@@ -32,7 +52,7 @@ def getPlayersOfClan(clanID):
         allP = []
     return allP
 
-def proccess():
+def processClans():
     with open('data/clans.csv', newline='') as f:   
         reader = csv.reader(f)
         data = list(reader)
@@ -62,16 +82,24 @@ def writeAllPlayersFromFrenchClans():
     print("done")
     playersFile.close()
 
-def getWN8ofPlayer(name,id):
+def getRecentWN8ofPlayer(name,id):
     overall, overallX, recent, recentX = 0,0,0,0
 
     response = requests.get(f"https://tomato.gg/stats/EU/{name}%3D{id}?tab=advanced")
+    soup = BeautifulSoup(response.text, "html.parser")
     try:
-        print(response.text)
+        divs = soup.find_all("div", {"class": "sc-1c1f782f-0"})
+        for div in divs:
+            if "Heatmap" in str(div):
+                heatmapDiv = div
+        #print(heatmapDiv)
+        heatmapDiv = heatmapDiv.find_all("div")
+        for div in heatmapDiv:
+            print(div)
     except:
         allP = []
 
-    return overall, overallX, recent, recentX
+    return 0
 
 def writeAllwn8():
     dataFile = open("data/result.csv","w")
@@ -87,8 +115,14 @@ def writeAllwn8():
 
     return
 
-ok, ok2, ok3, ok4 = getWN8ofPlayer("Couscouz_","508990083")
-print(ok)
-print(ok2)
-print(ok3)
-print(ok4)
+def process(data,function):
+    res = []
+    for value in data:
+        res.append(function(value))
+    return res
+
+if __name__ == "__main__":
+    #allPseudos = readCSV("toGet")
+    allPseudos = ["Couscouz_"]
+    allIds = process(allPseudos,getPlayerIDbyName)
+    #writeCSV("oui",allPseudos)

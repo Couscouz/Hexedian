@@ -1,0 +1,31 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "hexedian api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon -L src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Couscouz/Hexedian.git"
+  },
+  "author": "Couscouz_",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Couscouz/Hexedian/issues"
+  },
+  "homepage": "https://github.com/Couscouz/Hexedian#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "module-alias": "^2.2.3",
+    "mongoose": "^8.0.1",
+    "morgan": "^1.10.0",
+    "socket.io": "^4.7.2"
+  }
+}
