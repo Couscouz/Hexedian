@@ -2,7 +2,7 @@ import csv
 
 #filename in /data
 def read(filename):
-    with open(f"../csv/{filename}.csv", newline='') as file:   
+    with open(f"csv/{filename}.csv", newline='') as file:   
         reader = csv.reader(file,delimiter=';')
         data = list(reader)
     if width(filename) == 1:
@@ -14,7 +14,7 @@ def read(filename):
 
 #filename in /data
 def write(filename,data):
-    with open(f"../csv/{filename}.csv", "w") as file:
+    with open(f"csv/{filename}.csv", "w") as file:
         for line in data:
             if isinstance(line, list):
                 lineToWrite = ""
