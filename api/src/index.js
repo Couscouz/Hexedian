@@ -33,7 +33,6 @@ app.use(function (req, res, next) {
 
   // Request headers you wish to allow
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
   res.setHeader('Content-Type', 'application/json');
 
   // Set to true if you need the website to include cookies in the requests sent
@@ -45,6 +44,8 @@ app.use(function (req, res, next) {
 });
 
 app.use("/player", require("@app/routes/player.routes"))
+
+//-------------------------------------------------------
 
 const http = require('http').Server(app)
 const socketIO = require('socket.io')(http, {
