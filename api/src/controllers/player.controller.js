@@ -1,4 +1,4 @@
-const PlayerModel =  require('../database/models/player.model')
+const PlayerModel =  require('@app/database/models/player.model')
 
 module.exports.getAllPlayers = async (req,res) => {
     try {

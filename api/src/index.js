@@ -2,7 +2,7 @@ require('module-alias/register')
 require('dotenv').config()
 
 const express = require('express')
-const connectDB = require('../database/db')
+const connectDB = require('@app/database/db')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const cors = require('cors')
@@ -10,7 +10,7 @@ const cors = require('cors')
 const PORT = process.env.PORT || 5000
 
 //DB connexion
-//connectDB()
+// connectDB()
 
 const app = express()
 
@@ -44,8 +44,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-//app.use("/result", require("./routes/result.routes"))
-//app.use("/replay", require("./routes/replay.routes"))
+app.use("/player", require("@app/routes/player.routes"))
 
 const http = require('http').Server(app)
 const socketIO = require('socket.io')(http, {
