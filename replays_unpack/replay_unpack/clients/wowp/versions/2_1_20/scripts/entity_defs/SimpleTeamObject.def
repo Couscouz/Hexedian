@@ -1,5 +1,0 @@
-<SimpleTeamObject.def>
-  <Implements>
-    <Interface>	TeamObjectInterface	</Interface>
-  </Implements>
-</SimpleTeamObject.def>
