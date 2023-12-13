@@ -1,23 +1,13 @@
 const mongoose = require('mongoose')
 
-const playerSchema = mongoose.Schema(
-    {
-        id: {
-            type: String,
-            required: true
-        },
-        name: {
-            type: String,
-            required: false
-        },
-        recent: {
-            type: String,
-            required: false
-        }
+const playerSchema = mongoose.Schema({
+        id: String,
+        name: String,
+        recent: Number,
     },
     {
         timestamps: true
     }
-)
+);
 
 module.exports = mongoose.model('player', playerSchema)

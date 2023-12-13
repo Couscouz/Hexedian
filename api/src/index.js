@@ -3,12 +3,11 @@ require('dotenv').config()
 
 const express = require('express')
 const connectDB = require('@app/database/db')
-const mongoose = require('mongoose')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const cors = require('cors')
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 
 //DB connexion
 connectDB()
@@ -45,18 +44,12 @@ app.use(function (req, res, next) {
 });
 
 app.use("/player", require("@app/routes/player.routes"))
+app.use("/data", require("@app/routes/data.routes"))
 
 //-------------------------------------------------------
 
-const http = require('http').Server(app)
-const socketIO = require('socket.io')(http, {
-  cors: {
-    origin: "http://localhost:3000"
-  }
-});
+const http = require('http').createServer(app);
 
-global.socketIO = socketIO;
+http.listen(PORT);
 
-socketIO.on('connection', (socket) => {
-
-});
+console.log("APP started on PORT " + PORT)
