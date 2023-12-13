@@ -3,6 +3,7 @@ require('dotenv').config()
 
 const express = require('express')
 const connectDB = require('@app/database/db')
+const mongoose = require('mongoose')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const cors = require('cors')
@@ -10,7 +11,7 @@ const cors = require('cors')
 const PORT = process.env.PORT || 5000
 
 //DB connexion
-// connectDB()
+connectDB()
 
 const app = express()
 
