@@ -1,28 +1,24 @@
 const cheerio = require('cheerio')
 const axios = require('axios')
 
-const getURL = (id,name) => {
-    return 'https://tomato.gg/stats/EU/' + name + '%3D'+ id;
-}
+const getURL = (id,name) => 'https://tomato.gg/stats/EU/' + name + '%3D'+ id;
 
 const getOverallWN8 = async (id,name) => {
+    let overall = undefined;
     try {
         const url = getURL(id,name)
-        axios.get().then(({ data }) => { 
-            const $ = cheerio.load(data); 
-     
-            const heatmapDiv = $('.fnejWB').eq(4)
-            console.log(heatmapDiv.text())
-            
-        });
+        const data = axios.get(url)
+        const $ = cheerio.load(data); 
+        overall = $('.giPEpe').text().split('%')[1].slice(0,4);
     } catch (err) {
         console.log(err);
-        res.status(400).jso
+        res.status(400);
     }
+    return overall;
 }
 
 const perform = async (id,name) => {
-    const url =  getURL(id,name) + '    ?tab=advanced';
+    const url =  getURL(id,name) + '?tab=advanced';
 
     // axios.get(url).then(({ data }) => { 
 	// 	const $ = cheerio.load(data); 

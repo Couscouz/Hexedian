@@ -1,6 +1,6 @@
 const PlayerModel =  require('@app/database/models/player.model')
 
-module.exports.getAllPlayers = async (req,res) => {
+module.exports.getAll = async (req,res) => {
     try {
         const results = await PlayerModel.find()
 

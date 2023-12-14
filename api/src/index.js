@@ -44,7 +44,23 @@ app.use(function (req, res, next) {
 });
 
 app.use("/player", require("@app/routes/player.routes"))
+app.use("/clans", require("@app/routes/clan.routes"))
 app.use("/data", require("@app/routes/data.routes"))
+
+/*
+ROUTES
+
+GET /players
+GET /players/:id
+GET /players/:id/clan
+
+GET /clans
+GET /clans/:id
+GET /clans/:id/players
+
+/data => temporaire
+
+*/
 
 //-------------------------------------------------------
 
@@ -52,4 +68,4 @@ const http = require('http').createServer(app);
 
 http.listen(PORT);
 
-console.log("APP started on PORT " + PORT)
+console.log("API running on port " + PORT)
