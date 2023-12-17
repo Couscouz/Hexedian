@@ -3,19 +3,22 @@ const axios = require('axios')
 
 const getURL = (id,name) => 'https://tomato.gg/stats/EU/' + name + '%3D'+ id;
 
-const getOverallWN8 = async (id,name) => {
-    let overall = undefined;
-    try {
-        const url = getURL(id,name)
-        const data = axios.get(url)
-        const $ = cheerio.load(data); 
-        overall = $('.giPEpe').text().split('%')[1].slice(0,4);
-    } catch (err) {
-        console.log(err);
-        res.status(400);
-    }
-    return overall;
+const getHTML = async (url) => {
+    const { data: html } = await axios.get(url);
+    return html;
 }
+
+const get30DaysWN8_WoTLife = async (id,name) => {
+    const url = "https://fr.wot-life.com/eu/player/"+name+"-"+id+"/";
+
+    const data = await getHTML(url);
+
+    const $ = cheerio.load(data);
+    const temp = $('.stats-table tbody tr:nth-child(16) td:nth-child(5)').text();
+    const value = parseInt(temp.split(',')[0])
+    console.log(value);
+    return value;
+}   
 
 const perform = async (id,name) => {
     const url =  getURL(id,name) + '?tab=advanced';
@@ -30,25 +33,18 @@ const perform = async (id,name) => {
         
 	// 	console.log("recent="+recent+" overall="+overall);
     // });
+    
 
-    axios.get(url+'?tab=advanced').then(({ data }) => { 
-		const $ = cheerio.load(data); 
- 
-		const heatmapDiv = $('.fnejWB').eq(4)
-        console.log(heatmapDiv.text())
-        
-    });
+
 }
-
-
-
 
 
 module.exports.test = async (req,res) => {
     try {
         const name = "Couscouz_"
         const id = 508990083
-        await perform(id,name)
+        const overall = await get30DaysWN8_WoTLife(id,name)
+        console.log(("overall="+overall));
         res.status(200)
     }   
     catch (err) {
