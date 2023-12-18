@@ -1,6 +1,7 @@
 const cheerio = require('cheerio')
 const axios = require('axios')
 const { readFileSync } = require('fs')
+const Clan = require('@app/database/models/clan.model')
 
 const APPLICATION_ID = '104dcbb058cfe503c47eb27800beb0ec'
 
@@ -75,9 +76,33 @@ module.exports.fillClans = async (req,res) => {
     const clansID = readFileSync("./src/database/csv/clansID.csv", {encoding: 'utf8'}).split("\n");
 
     for (ID of clansID) {
+        const newClan = new Clan({ 
+            _id: parseInt(ID),
+            tag: await getClanName_ByID(ID),
+            size: await getClanSize_ByID(ID)
+        });
+        const filter = { _id: parseInt(ID) };
+
+        const oldClan = await Clan.findOne(filter);
+
+        //Check if the clan needs to be updated in the db
+        if (newClan.size !== oldClan.size || newClan.tag !== oldClan.tag) {
+            await Clan.findOneAndUpdate(filter, newClan);
+            console.log("Updated " + newClan.tag);
+        } else {
+            console.log("No update needed for " + newClan.tag);
+        }
+    }
+    console.log("All clans on DB");
+}
+
+module.exports.fillPlayers = async (req,res) => {
+    const playersID = readFileSync("./src/database/csv/playersID_20lines.csv", {encoding: 'utf8'}).split("\n");
+
+    for (ID of playersID) {
         const name = await getClanName_ByID(ID)
         const size = await getClanSize_ByID(ID)
-        console.log(ID + " a pour tag " + name + " et compte " + size + " joueurs");
+        console.log(ID + " a pour nom " + name + " et compte " + size + " joueurs");
         const clan = { id: ID, tag: name, size: size}
         //add to Clan Database
     }

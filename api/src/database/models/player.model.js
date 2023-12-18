@@ -1,13 +1,16 @@
 const mongoose = require('mongoose')
 
-const playerSchema = mongoose.Schema({
-        id: String,
+const playerSchema = mongoose.Schema(
+    {
+        _id: Number,
         name: String,
         recent: Number,
+        date: { type: Date, default: Date.now}
     },
     {
-        timestamps: true
+        timestamps: true,
+        versionKey: false
     }
 );
 
-module.exports = mongoose.model('player', playerSchema)
+module.exports = mongoose.model('Player', playerSchema)
