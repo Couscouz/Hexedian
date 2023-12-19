@@ -30,6 +30,7 @@
     "morgan": "^1.10.0",
     "node-docker": "^0.0.1",
     "node-fetch": "^3.3.2",
+    "request": "^2.88.2",
     "socket.io": "^4.7.2"
   },
   "devDependencies": {

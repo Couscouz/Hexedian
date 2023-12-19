@@ -11,3 +11,4 @@ module.exports.getAllById = async (req,res) => {
 module.exports.getPlayersByClanId = async (req,res) => {
 
 }
+
