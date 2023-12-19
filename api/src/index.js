@@ -69,3 +69,15 @@ const http = require('http').createServer(app);
 http.listen(PORT);
 
 console.log("API running on port " + PORT)
+
+//---------DAILY-TRIGGER-------------
+
+const { main } = require('@app/services/update/process');
+
+//Each second
+const testReccurence = '* * * * * *';
+
+//Each day at 03am
+const dailyReccurence = '0 3 * * * *';
+
+require('node-cron').schedule('* * * * * *', main);

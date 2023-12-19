@@ -28,6 +28,7 @@
     "module-alias": "^2.2.3",
     "mongoose": "^8.0.1",
     "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
     "node-docker": "^0.0.1",
     "node-fetch": "^3.3.2",
     "request": "^2.88.2",
