@@ -1,5 +1,9 @@
-const Player =  require('@app/database/models/player.model');
+const Player = require('@app/database/models/player.model');
+const Clan = require('@app/database/models/clan.model')
 const { sortByKey } = require('@app/services/tools');
+const { readFileSync } = require('fs');
+const WotAPI = require('@app/services/wot_api');
+const WotLifeAPI = require('@app/services/wotlife_api');
 
 module.exports.getAll = async (req,res) => {
     try {
@@ -41,5 +45,77 @@ module.exports.add = async (req,res) => {
     catch (err) {
         console.log(err);
         res.status(400)
+    }
+}
+
+module.exports.update = async (req,res) => {
+    try {
+        const playersID = readFileSync("./src/database/csv/playersID.csv", {encoding: 'utf8'}).split("\n");
+
+        //Empty collection
+        await Player.deleteMany({});
+
+        let last_battle_limit = new Date();
+        last_battle_limit.setMonth(last_battle_limit.getMonth()-1);
+        
+        const allPlayers = []
+
+        const size = playersID.length;
+        let i=1;
+        for (ID of playersID) {
+            const playerName = await WotAPI.getPlayerName_ByID(ID);
+            //const last_battle = await WotAPI.getDateOfLastBattle_ByID(ID);
+
+            //check if player exists and played < 1 month
+            if (playerName /*&& last_battle*1000 > last_battle_limit*/) {
+                const clanIDofPlayer = await WotAPI.getClanID_ByPlayerID(ID);
+                const clanOfPlayer = await Clan.findOne({ _id: clanIDofPlayer });
+                
+                const playerData = { 
+                    _id: parseInt(ID),
+                    name: playerName,
+                    recent: await WotLifeAPI.get30DaysWN8_WoTLife(ID,playerName),
+                    overall: await WotLifeAPI.getOverallWN8_WoTLife(ID,playerName),
+                    moe: await WotAPI.getNumberOf3moe_ByID(ID),
+                    clan: clanOfPlayer,
+                    ranking: {}
+                };
+                allPlayers.push(playerData)
+            }
+            console.log("("+i+"/"+size+") ");
+            i++;
+        }
+
+        const allPlayers_moeSort = sortByKey([...allPlayers],"moe");
+        const allPlayers_recentSort = sortByKey([...allPlayers], "recent");
+        const allPlayers_overallSort = sortByKey([...allPlayers], "overall");
+
+        for (let i=0;i<allPlayers.length;i++) {
+            allPlayers[i].ranking = {
+                recent: allPlayers_recentSort.indexOf(allPlayers[i])+1,
+                overall: allPlayers_overallSort.indexOf(allPlayers[i])+1,
+                moe: allPlayers_moeSort.indexOf(allPlayers[i])+1
+            }
+            console.log(`(${i+1}/${allPlayers.length}) : SORTING`);
+            const toAdd = new Player(allPlayers[i]);
+            toAdd.save();
+        }
+        
+        res.status(200).json();
+    } catch (err) {
+        console.log(err);
+        res.status(400);
+    }
+    
+}
+
+module.exports.deleteAll = async (req,res) => {
+    try {
+        await Player.deleteMany({});
+        res.status(200);
+    }   
+    catch (err) {
+        console.log(err);
+        res.status(400);
     }
 }

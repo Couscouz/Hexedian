@@ -134,45 +134,7 @@ module.exports.updateClans = async (req,res) => {
     }
 }
 
-module.exports.updatePlayers = async (req,res) => {
-    const playersID = readFileSync("./src/database/csv/playersID.csv", {encoding: 'utf8'}).split("\n");
 
-    const size = playersID.length;
-    let i=1;
-    for (ID of playersID) {
-        const oldPlayer = await Player.findOne({ _id: ID })
-        if (!oldPlayer) {
-
-            const playerName = await WotAPI.getPlayerName_ByID(ID);
-
-            if (playerName) {
-                const clanIDofPlayer = await WotAPI.getClanID_ByPlayerID(ID);
-                const clanOfPlayer = await Clan.findOne({ _id: clanIDofPlayer });
-                
-                const newPlayer = new Player({ 
-                    _id: parseInt(ID),
-                    name: playerName,
-                    recent: await WotLifeAPI.get30DaysWN8_WoTLife(ID,playerName),
-                    moe: await WotAPI.getNumberOf3moe_ByID(ID),
-                    clan: clanOfPlayer
-                });
-        
-                await newPlayer.save();
-                console.log("("+i+"/"+size+") " + newPlayer.name + " added");
-            } else {
-                console.log("("+i+"/"+size+") n'existe plus");
-            }     
-        } else {
-            console.log("("+i+"/"+size+") existe deja");
-        }
-        i++;
-
-        // const clan = await Clan.findOne({ _id: clanID }).tag;
-        // const clan = { _id: parseInt(ID), name: name, recent: 0, clan: clanID }
-        //console.log(newPlayer);
-        //add to Clan Database
-    }
-}
 
 module.exports.resetClans = async (req,res) => {
     await Clan.collection.drop();

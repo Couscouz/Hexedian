@@ -1,6 +1,5 @@
-const { test,fillClans } = require('@app/controllers/data.controller')
+const { test,fillClans,fillPlayers } = require('@app/controllers/data.controller')
 const express = require('express')
-const { fillPlayers } = require('../controllers/data.controller')
 const router = express.Router()
 
 router.get("/", test)

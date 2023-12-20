@@ -93,3 +93,25 @@ module.exports.getDateOfLastBattle_ByID = async (id) => {
         return null;
     }
 }
+
+module.exports.getTierOfVehicule_ByID = async (id) => {
+    const url = `https://api.worldoftanks.eu/wot/encyclopedia/vehicles/?application_id=${APPLICATION_ID}&tank_id=${id}`;
+    try {
+        const response = await fetch(url, { method: 'GET' });
+        const content = await response.json();
+        return content.data[id].tier;
+    } catch {
+        return null;
+    }
+}
+
+module.exports.getNationOfVehicule_ByID = async (id) => {
+    const url = `https://api.worldoftanks.eu/wot/encyclopedia/vehicles/?application_id=${APPLICATION_ID}&tank_id=${id}`;
+    try {
+        const response = await fetch(url, { method: 'GET' });
+        const content = await response.json();
+        return content.data[id].nation;
+    } catch {
+        return null;
+    }
+}
