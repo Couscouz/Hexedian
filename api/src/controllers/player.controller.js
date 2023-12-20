@@ -3,13 +3,9 @@ const { sortByKey } = require('@app/services/tools');
 
 module.exports.getAll = async (req,res) => {
     try {
-        const all_players = await Player.find();
-        const all_players_sorted = sortByKey(all_players, 'recent');
-
-        for (let i =0;i<20;i++){
-            console.log((i+1)+" : "+all_players_sorted[i].name + "("+all_players_sorted[i].recent+")");
-        }
-
+        const all_players_sorted = await Player.find({ recent: { $ne: 0 } }).sort('-recent')
+        // const a = await Player.find({recent: 0})
+        console.log("->"+all_players_sorted.length);
         res.status(200).json(all_players_sorted)
     }   
     catch (err) {

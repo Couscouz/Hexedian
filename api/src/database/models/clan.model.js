@@ -6,6 +6,9 @@ const clanSchema = mongoose.Schema(
         tag: { type: String, maxlength: 5 },
         logo: Buffer,
         size: Number,
+        ranking: {
+            size: Number
+        }
     },
     {
         timestamps: true,

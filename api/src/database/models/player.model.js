@@ -7,9 +7,11 @@ const playerSchema = mongoose.Schema(
         recent: Number,
         overall: Number,
         moe: Number,
-        recentRanking: Number,
-        overallRanking: Number,
-        moeRanking: Number,
+        ranking: {
+            recent: Number,
+            overall: Number,
+            moe: Number
+        },
         clan: { type: mongoose.Schema.Types.ObjectId, ref: 'Clan' },
         date: { type: Date, default: Date.now}
     },
