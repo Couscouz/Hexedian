@@ -5,8 +5,8 @@ module.exports.getAll = async (req,res) => {
     try {
         const all_players_sorted = await Player.find({ recent: { $ne: 0 } }).sort('-recent')
         // const a = await Player.find({recent: 0})
-        console.log("->"+all_players_sorted.length);
-        res.status(200).json(all_players_sorted)
+        const value = all_players_sorted[all_players_sorted.length-1]
+        res.status(200).json(value)
     }   
     catch (err) {
         console.log(err);

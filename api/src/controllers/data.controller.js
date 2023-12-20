@@ -8,10 +8,22 @@ const { sortByKey } = require('@app/services/tools')
 
 module.exports.test = async (req,res) => {
     try {
-        const id = 537793577;
-        const data = await Clan.find({}).sort('-size');
-        console.log(data);
-        res.status(200).json(data);
+        let playersID = readFileSync("./src/database/csv/playersID.csv", {encoding: 'utf8'}).split("\n");
+        let playing = 0;
+        let i=1
+
+        //Set time limit
+        let limit = new Date();
+        limit.setMonth(limit.getMonth()-1);
+
+        for (ID of playersID) {
+            const date = await WotAPI.getDateOfLastBattle_ByID(ID);
+            if (date*1000 > limit) playing++;
+            console.log(`(${i}/${playersID.length}) playing=${playing}`);
+            i++;
+        }
+        console.log();
+        res.status(200);
     }   
     catch (err) {
         console.log(err);

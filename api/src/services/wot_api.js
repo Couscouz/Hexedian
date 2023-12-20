@@ -82,3 +82,14 @@ module.exports.getNumberOf3moe_ByID = async (id) => {
         return null;
     }
 }
+
+module.exports.getDateOfLastBattle_ByID = async (id) => {
+    const url = `https://api.worldoftanks.eu/wot/account/info/?application_id=${APPLICATION_ID}&account_id=${id}`;
+    try {
+        const response = await fetch(url, { method: 'GET' });
+        const content = await response.json();
+        return content.data[id].last_battle_time;
+    } catch {
+        return null;
+    }
+}
