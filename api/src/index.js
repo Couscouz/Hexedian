@@ -80,4 +80,4 @@ const testReccurence = '* * * * * *';
 //Each day at 03am
 const dailyReccurence = '0 3 * * * *';
 
-require('node-cron').schedule('* * * * * *', main);
+require('node-cron').schedule(dailyReccurence, main);
