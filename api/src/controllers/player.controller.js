@@ -4,6 +4,7 @@ const { sortByKey } = require('@app/services/tools');
 const { readFileSync } = require('fs');
 const WotAPI = require('@app/services/wot_api');
 const WotLifeAPI = require('@app/services/wotlife_api');
+const { log } = require('@app/services/update/process')
 
 module.exports.getAll = async (req,res) => {
     try {
@@ -63,26 +64,32 @@ module.exports.update = async (req,res) => {
         const size = playersID.length;
         let i=1;
         for (ID of playersID) {
-            const playerName = await WotAPI.getPlayerName_ByID(ID);
+            try {
+                const playerName = await WotAPI.getPlayerName_ByID(ID);
             //const last_battle = await WotAPI.getDateOfLastBattle_ByID(ID);
 
             //check if player exists and played < 1 month
-            if (playerName /*&& last_battle*1000 > last_battle_limit*/) {
+
                 const clanIDofPlayer = await WotAPI.getClanID_ByPlayerID(ID);
                 const clanOfPlayer = await Clan.findOne({ _id: clanIDofPlayer });
+
+                const wn8 = await WotLifeAPI.getWN8(ID,playerName);
                 
                 const playerData = { 
                     _id: parseInt(ID),
                     name: playerName,
-                    recent: await WotLifeAPI.get30DaysWN8_WoTLife(ID,playerName),
-                    overall: await WotLifeAPI.getOverallWN8_WoTLife(ID,playerName),
+                    recent: wn8.recent,
+                    overall: wn8.overall,
                     moe: await WotAPI.getNumberOf3moe_ByID(ID),
                     clan: clanOfPlayer,
                     ranking: {}
                 };
                 allPlayers.push(playerData)
+            } catch (err) {
+                console.log(err);
+                log(err)
             }
-            console.log("("+i+"/"+size+") ");
+            console.log("("+i+"/"+size+") "+(100*i/size)+"%");
             i++;
         }
 
