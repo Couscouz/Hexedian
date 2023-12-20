@@ -1,8 +1,0 @@
-20/12 18:3:0 INFO   : End of daily update
-20/12 18:3:0 INFO   : Starting daily update
-20/12 19:3:0 INFO   : Starting daily update
-20/12 19:3:0 INFO   : End of daily update
-20/12 20:3:0 INFO   : End of daily update
-20/12 20:3:0 INFO   : Starting daily update
-20/12 21:3:0 INFO   : Starting daily update
-20/12 21:3:0 INFO   : End of daily update

@@ -72,7 +72,7 @@ console.log("API running on port " + PORT)
 
 //---------DAILY-TRIGGER-------------
 
-const { main } = require('@app/services/update/process');
+const { run } = require('@app/services/automation');
 
 //Each second
 const testReccurence = '* * * * * *';
@@ -80,4 +80,4 @@ const testReccurence = '* * * * * *';
 //Each day at 03am
 const dailyReccurence = '0 3 * * * *';
 
-require('node-cron').schedule(dailyReccurence, main);
+require('node-cron').schedule(dailyReccurence, run);

@@ -1,19 +1,7 @@
 const { appendFile } = require('fs');
-const logFilePath = 'src/services/update/log.txt';
+const logFilePath = 'log.txt';
 
-module.exports.main = async () => {
-    log("Starting daily update");
-
-    //Update clans
-
-    //update players
-
-    //Sort players
-
-    log("End of daily update");
-}
-
-const log = (status) => {
+module.exports.log = (status) => {
     const date = new Date();
     const sentence = `${date.getDate()}/${date.getMonth()+1} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} INFO   : ${status}\n`;
     appendFile(logFilePath, sentence, (err) => {

@@ -4,7 +4,7 @@ const { sortByKey } = require('@app/services/tools');
 const { readFileSync } = require('fs');
 const WotAPI = require('@app/services/wot_api');
 const WotLifeAPI = require('@app/services/wotlife_api');
-const { log } = require('@app/services/update/process')
+const { log } = require('@app/services/logger')
 
 module.exports.getAll = async (req,res) => {
     try {
@@ -64,6 +64,7 @@ module.exports.update = async (req,res) => {
         const size = playersID.length;
         let i=1;
         for (ID of playersID) {
+            if (i>6000) {
             try {
                 const playerName = await WotAPI.getPlayerName_ByID(ID);
             //const last_battle = await WotAPI.getDateOfLastBattle_ByID(ID);
@@ -87,8 +88,9 @@ module.exports.update = async (req,res) => {
                 allPlayers.push(playerData)
             } catch (err) {
                 console.log(err);
+                log(ID)
                 log(err)
-            }
+            }}
             console.log("("+i+"/"+size+") "+(100*i/size)+"%");
             i++;
         }
