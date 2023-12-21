@@ -1,6 +1,6 @@
 const Player =  require('@app/database/models/player.model');
 const Clan =  require('@app/database/models/clan.model');
-const WargamingAPI = require('@app/services/wargaming_api');
+const WargamingAPI = require('@app/utils/api/wargaming');
 
 //Get all clans, sorted by size (/!\ to modify later)
 module.exports.getAll = async (req,res) => {

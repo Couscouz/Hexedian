@@ -3,7 +3,7 @@ const Clan = require('@app/database/models/clan.model')
 const { sortByKey } = require('@app/utils/tools');
 const { readFileSync } = require('fs');
 const WargamingAPI = require('@app/utils/api/wargaming');
-const WotLifeAPI = require('@app/services/api/wotlife');
+const WotLifeAPI = require('@app/utils/api/wotlife');
 const { log } = require('@app/services/logger')
 
 module.exports.test = async (req,res) => {

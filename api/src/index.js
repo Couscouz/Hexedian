@@ -43,9 +43,9 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/players", require("@app/routes/player.routes"))
-app.use("/clans", require("@app/routes/clan.routes"))
-app.use("/data", require("@app/routes/data.routes"))
+app.use("/players", require("@app/routes/player"))
+app.use("/clans", require("@app/routes/clan"))
+app.use("/data", require("@app/routes/data"))
 
 /*
 ROUTES
