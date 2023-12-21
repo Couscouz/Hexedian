@@ -115,7 +115,7 @@ module.exports.getClanOfOne = async (req,res) => {
 
 module.exports.update = async (req,res) => {
     try {
-        const playersID = readFileSync("./src/database/csv/test.csv", {encoding: 'utf8'}).split("\n");
+        const playersID = readFileSync("./src/database/csv/playersID.csv", {encoding: 'utf8'}).split("\n");
 
         let last_battle_limit = new Date();
         last_battle_limit.setMonth(last_battle_limit.getMonth()-1);
