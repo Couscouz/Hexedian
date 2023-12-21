@@ -22,3 +22,21 @@ starting 3h22
 21/12 8:5:0 INFO   : End of daily update
 21/12 8:15:3 INFO   : 556497103
 21/12 8:15:3 INFO   : AxiosError: Request failed with status code 404
+21/12 16:10:30 INFO   : 500601400
+21/12 16:10:30 INFO   : AxiosError: Request failed with status code 404
+21/12 17:29:4 INFO   : 526014550
+21/12 17:29:4 INFO   : AxiosError: Request failed with status code 404
+21/12 17:51:12 INFO   : 518487415
+21/12 17:51:12 INFO   : AxiosError: Request failed with status code 404
+21/12 18:5:55 INFO   : 521853156
+21/12 18:5:55 INFO   : AxiosError: Request failed with status code 404
+21/12 18:7:33 INFO   : 504469577
+21/12 18:7:33 INFO   : AxiosError: Request failed with status code 404
+21/12 18:21:55 INFO   : 563924926
+21/12 18:21:55 INFO   : AxiosError: Request failed with status code 404
+21/12 18:55:26 INFO   : 556497103
+21/12 18:55:26 INFO   : AxiosError: Request failed with status code 404
+21/12 19:0:37 INFO   : 12612
+21/12 19:0:37 INFO   : ValidationError: _id: Cast to Number failed for value "NaN" (type number) at path "_id"
+21/12 19:2:7 INFO   : 2420
+21/12 19:2:7 INFO   : MongoNetworkTimeoutError: connection timed out

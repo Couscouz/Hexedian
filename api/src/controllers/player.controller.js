@@ -9,7 +9,7 @@ const { log } = require('@app/services/logger')
 module.exports.test = async (req,res) => {
     try {
         //sort 1 pour croissant et -1 decroissant
-        const result = await Player.find().sort({['moe']: -1});
+        const result = await Player.find().sort({['recent']: -1});
         res.status(200).json(result);
     }
     catch (err) {
