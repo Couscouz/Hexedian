@@ -1,4 +1,4 @@
-
+const { log } = require('@app/services/logger');
 
 module.exports.run = async () => {
     log("Starting daily update");
