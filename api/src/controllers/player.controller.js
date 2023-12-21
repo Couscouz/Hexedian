@@ -1,9 +1,9 @@
 const Player = require('@app/database/models/player.model');
 const Clan = require('@app/database/models/clan.model')
-const { sortByKey } = require('@app/services/tools');
+const { sortByKey } = require('@app/utils/tools');
 const { readFileSync } = require('fs');
-const WargamingAPI = require('@app/services/wargaming_api');
-const WotLifeAPI = require('@app/services/wotlife_api');
+const WargamingAPI = require('@app/utils/api/wargaming');
+const WotLifeAPI = require('@app/services/api/wotlife');
 const { log } = require('@app/services/logger')
 
 module.exports.test = async (req,res) => {
@@ -136,15 +136,4 @@ module.exports.update = async (req,res) => {
         res.status(400);
     }
     
-}
-
-module.exports.deleteAll = async (req,res) => {
-    try {
-        await Player.deleteMany({});
-        res.status(200);
-    }   
-    catch (err) {
-        console.log(err);
-        res.status(400);
-    }
 }

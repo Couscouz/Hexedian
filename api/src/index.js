@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/player", require("@app/routes/player.routes"))
+app.use("/players", require("@app/routes/player.routes"))
 app.use("/clans", require("@app/routes/clan.routes"))
 app.use("/data", require("@app/routes/data.routes"))
 
