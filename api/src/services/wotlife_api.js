@@ -1,8 +1,6 @@
 const cheerio = require('cheerio')
 const axios = require('axios')
 
-const getURL = (id,name) => 'https://tomato.gg/stats/EU/' + name + '%3D'+ id;
-
 const getHTML = async (url) => {
     const { data: html } = await axios.get(url);
     return html;

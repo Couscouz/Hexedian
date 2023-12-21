@@ -1,10 +1,10 @@
 
-const { readFileSync } = require('fs')
-const Clan = require('@app/database/models/clan.model')
-const Player = require('@app/database/models/player.model')
-const WotAPI = require('@app/services/wot_api')
-const WotLifeAPI = require('@app/services/wotlife_api')
-const { sortByKey } = require('@app/services/tools')
+const { readFileSync } = require('fs');
+const Clan = require('@app/database/models/clan.model');
+const Player = require('@app/database/models/player.model');
+const WargamingAPI = require('@app/services/wargaming_api');
+const WotLifeAPI = require('@app/services/wotlife_api');
+const { sortByKey } = require('@app/services/tools');
 
 module.exports.test = async (req,res) => {
     try {
@@ -17,7 +17,7 @@ module.exports.test = async (req,res) => {
         limit.setMonth(limit.getMonth()-1);
 
         for (ID of playersID) {
-            const date = await WotAPI.getDateOfLastBattle_ByID(ID);
+            const date = await WargamingAPI.getDateOfLastBattle_ByID(ID);
             if (date*1000 > limit) playing++;
             console.log(`(${i}/${playersID.length}) playing=${playing}`);
             i++;
@@ -41,9 +41,9 @@ module.exports.fillClans = async (req,res) => {
     for (ID of clansID) {
         const newClan = new Clan({ 
             _id: parseInt(ID),
-            tag: await WotAPI.getClanName_ByID(ID),
-            size: await WotAPI.getClanSize_ByID(ID),
-            logo: await WotAPI.getClanLogo_ByID(ID)
+            tag: await WargamingAPI.getClanName_ByID(ID),
+            size: await WargamingAPI.getClanSize_ByID(ID),
+            logo: await WargamingAPI.getClanLogo_ByID(ID)
         });
         newClan.save();
         console.log(newClan.logo);
@@ -72,17 +72,17 @@ module.exports.fillPlayers = async (req,res) => {
         const oldPlayer = await Player.findOne({ _id: ID })
         if (!oldPlayer && i != -1) {
 
-            const playerName = await WotAPI.getPlayerName_ByID(ID);
+            const playerName = await WargamingAPI.getPlayerName_ByID(ID);
 
             if (playerName) {
-                const clanIDofPlayer = await WotAPI.getClanID_ByPlayerID(ID);
+                const clanIDofPlayer = await WargamingAPI.getClanID_ByPlayerID(ID);
                 const clanOfPlayer = await Clan.findOne({ _id: clanIDofPlayer });
                 
                 const newPlayer = new Player({ 
                     _id: parseInt(ID),
                     name: playerName,
                     recent: await WotLifeAPI.get30DaysWN8_WoTLife(ID,playerName),
-                    moe: await WotAPI.getNumberOf3moe_ByID(ID),
+                    moe: await WargamingAPI.getNumberOf3moe_ByID(ID),
                     clan: clanOfPlayer
                 });
         
@@ -117,9 +117,9 @@ module.exports.updateClans = async (req,res) => {
     for (ID of clansID) {
         const newClan = { 
             _id: parseInt(ID),
-            tag: await WotAPI.getClanName_ByID(ID),
-            size: await WotAPI.getClanSize_ByID(ID),
-            logo: await WotAPI.getClanLogo_ByID(ID)
+            tag: await WargamingAPI.getClanName_ByID(ID),
+            size: await WargamingAPI.getClanSize_ByID(ID),
+            logo: await WargamingAPI.getClanLogo_ByID(ID)
         };
         allClans.append(newClan);
     }

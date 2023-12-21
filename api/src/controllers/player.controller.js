@@ -2,52 +2,73 @@ const Player = require('@app/database/models/player.model');
 const Clan = require('@app/database/models/clan.model')
 const { sortByKey } = require('@app/services/tools');
 const { readFileSync } = require('fs');
-const WotAPI = require('@app/services/wot_api');
+const WargamingAPI = require('@app/services/wargaming_api');
 const WotLifeAPI = require('@app/services/wotlife_api');
 const { log } = require('@app/services/logger')
 
-module.exports.getAll = async (req,res) => {
-    try {
-        const all_players_sorted = await Player.find({ recent: { $ne: 0 } }).sort('-recent')
-        // const a = await Player.find({recent: 0})
-        const value = all_players_sorted[all_players_sorted.length-1]
-        res.status(200).json(value)
-    }   
-    catch (err) {
-        console.log(err);
-        res.status(400)
-    }
-}
-
 module.exports.test = async (req,res) => {
     try {
-        console.log("test")
-        res.status(200)
+        console.log("test");
+        res.status(200);
     }   
     catch (err) {
         console.log(err);
-        res.status(400)
+        res.status(400);
     }
 }
 
-module.exports.add = async (req,res) => {
+//--------------------------------------------
+
+//Get all players, sorted by recent
+module.exports.getAll = async (req,res) => {
     try {
-        const player = new PlayerModel({
-            id: req.body.id,
-            name: req.body.name,
-            recent: req.body.recent
-        });
-
-        player.save();
-
-        console.log("player added")
-        res.status(200).json(results)
+        const all_players_sorted = await Player.find().sort('-recent');
+        res.status(200).json(all_players_sorted);
     }   
     catch (err) {
         console.log(err);
         res.status(400)
     }
 }
+
+//Get 1 player by id
+module.exports.getOne = async (req,res) => {
+    try {
+        const the_player = await Player.find({ _id: req.params.player_id }).sort('-recent');
+        res.status(200).json(the_player);
+    }   
+    catch (err) {
+        console.log(err);
+        res.status(400)
+    }
+}
+
+//Get top N players, sorted by recent
+module.exports.getTopN = async (req,res) => {
+    try {
+        const all_players_sorted = await Player.find().sort('-recent').limit(req.params.limit);
+        res.status(200).json(all_players_sorted);
+    }   
+    catch (err) {
+        console.log(err);
+        res.status(400);
+    }
+}
+
+//Get all players by clan 
+module.exports.getByClan = async (req,res) => {
+    try {
+        const clan = await Clan.find({ _id: req.params.clan_id })
+        const all_players_sorted = await Player.find({ clan: clan }).sort('-recent');
+        res.status(200).json(all_players_sorted);
+    }   
+    catch (err) {
+        console.log(err);
+        res.status(400);
+    }
+}
+
+//--------------------------
 
 module.exports.update = async (req,res) => {
     try {
@@ -65,12 +86,12 @@ module.exports.update = async (req,res) => {
         let i=1;
         for (ID of playersID) {
             try {
-                const playerName = await WotAPI.getPlayerName_ByID(ID);
-            //const last_battle = await WotAPI.getDateOfLastBattle_ByID(ID);
+                const playerName = await WargamingAPI.getPlayerName_ByID(ID);
+            //const last_battle = await WargamingAPI.getDateOfLastBattle_ByID(ID);
 
             //check if player exists and played < 1 month
 
-                const clanIDofPlayer = await WotAPI.getClanID_ByPlayerID(ID);
+                const clanIDofPlayer = await WargamingAPI.getClanID_ByPlayerID(ID);
                 const clanOfPlayer = await Clan.findOne({ _id: clanIDofPlayer });
 
                 const wn8 = await WotLifeAPI.getWN8(ID,playerName);
@@ -80,7 +101,7 @@ module.exports.update = async (req,res) => {
                     name: playerName,
                     recent: wn8.recent,
                     overall: wn8.overall,
-                    moe: await WotAPI.getNumberOf3moe_ByID(ID),
+                    moe: await WargamingAPI.getNumberOf3moe_ByID(ID),
                     clan: clanOfPlayer,
                     ranking: {}
                 };

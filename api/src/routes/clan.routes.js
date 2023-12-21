@@ -1,9 +1,10 @@
-const { getAll,getAllById,getPlayersByClanId } = require('@app/controllers/clan.controller')
-const express = require('express')
-const router = express.Router()
+const { getAll,getOne,getByPlayer } = require('@app/controllers/clan.controller');
+const express = require('express');
+const router = express.Router();
 
-router.get("/", getAll)
-router.get("/:id", getAllById)
-router.get("/:id/players", getPlayersByClanId)
+router.get("/", getAll);
+router.get("/:clan_id", getOne);
+router.get("/:limit", getTopN)
+router.get("/:player_id", getByPlayer)
 
-module.exports = router
+module.exports = router;
