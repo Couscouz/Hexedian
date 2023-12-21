@@ -10,7 +10,7 @@ module.exports.test = async (req,res) => {
     try {
         console.log("test");
         res.status(200);
-    }   
+    }
     catch (err) {
         console.log(err);
         res.status(400);
@@ -22,7 +22,7 @@ module.exports.test = async (req,res) => {
 //Get all players, sorted by recent
 module.exports.getAll = async (req,res) => {
     try {
-        const all_players_sorted = await Player.find().sort('-recent');
+        const all_players_sorted = await Player.find().sort('+ranking.recent');
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
@@ -34,8 +34,25 @@ module.exports.getAll = async (req,res) => {
 //Get 1 player by id
 module.exports.getOne = async (req,res) => {
     try {
-        const the_player = await Player.find({ _id: req.params.player_id }).sort('-recent');
+        const the_player = await Player.find({ _id: req.params.player_id });
         res.status(200).json(the_player);
+    }   
+    catch (err) {
+        console.log(err);
+        res.status(400)
+    }
+}
+
+//Get all players, sorted by recent
+module.exports.getAllSorted = async (req,res) => {
+    try {
+        const keys = ["recent", "overall", "moe"];
+        let key = keys[0];
+        if (keys.includes(req.params.sortType)) 
+            key = req.params.sortType;
+
+        const all_players_sorted = await Player.find().sort('+ranking.'+key);
+        res.status(200).json(all_players_sorted);
     }   
     catch (err) {
         console.log(err);
@@ -46,12 +63,37 @@ module.exports.getOne = async (req,res) => {
 //Get top N players, sorted by recent
 module.exports.getTopN = async (req,res) => {
     try {
-        const all_players_sorted = await Player.find().sort('-recent').limit(req.params.limit);
+        if (!req.params.limit || req.params.limit < 1) {
+            res.status(400).json({ messge: "wrong limit value" });
+            return
+        }
+        const all_players_sorted = await Player.find().sort('+ranking.recent').limit(req.params.limit);
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
         console.log(err);
         res.status(400);
+    }
+}
+
+//Get top players, sorted by sortType
+module.exports.getTopNSorted = async (req,res) => {
+    try {
+        if (!req.params.limit || req.params.limit < 1) {
+            res.status(400).json({ messge: "wrong limit value" });
+            return
+        }
+        const keys = ["recent", "overall", "moe"];
+        let key = keys[0];
+        if (keys.includes(req.params.sortType)) 
+            key = req.params.sortType;
+
+        const all_players_sorted = await Player.find().sort('+ranking.'+key).limit(req.params.limit);
+        res.status(200).json(all_players_sorted);
+    }   
+    catch (err) {
+        console.log(err);
+        res.status(400)
     }
 }
 
