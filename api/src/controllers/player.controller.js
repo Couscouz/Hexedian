@@ -97,12 +97,11 @@ module.exports.getTopNSorted = async (req,res) => {
     }
 }
 
-//Get all players by clan 
-module.exports.getByClan = async (req,res) => {
+//Get clan by player ID
+module.exports.getClanOfOne = async (req,res) => {
     try {
-        const clan = await Clan.find({ _id: req.params.clan_id })
-        const all_players_sorted = await Player.find({ clan: clan }).sort('-recent');
-        res.status(200).json(all_players_sorted);
+        const player = await Player.find({ _id: req.params.clan_id });
+        res.status(200).json(player.clan);
     }   
     catch (err) {
         console.log(err);

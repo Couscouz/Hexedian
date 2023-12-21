@@ -34,7 +34,7 @@ module.exports.getAllSorted = async (req,res) => {
         if (keys.includes(req.params.sortType)) 
             key = req.params.sortType;
 
-        const all_players_sorted = await Player.find().sort('+ranking.'+key);
+        const all_players_sorted = await Clan.find().sort('+ranking.'+key);
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
@@ -55,7 +55,7 @@ module.exports.getTopNSorted = async (req,res) => {
         if (keys.includes(req.params.sortType))
             key = req.params.sortType;
 
-        const all_players_sorted = await Player.find().sort('+ranking.'+key).limit(req.params.limit);
+        const all_players_sorted = await Clan.find().sort('+ranking.'+key).limit(req.params.limit);
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
@@ -81,10 +81,11 @@ module.exports.getTopN = async (req,res) => {
 }
 
 //Get 1 clan by player id
-module.exports.getByPlayer = async (req,res) => {
+module.exports.getPlayersOfOne = async (req,res) => {
     try {
-        const player = await Player.find({ _id: req.params.clan_id });
-        res.status(200).json(player.clan);
+        const clan = await Clan.find({ _id: req.params.clan_id })
+        const all_players_sorted = await Player.find({ clan: clan }).sort('-recent');
+        res.status(200).json(all_players_sorted);
     }   
     catch (err) {
         console.log(err);
