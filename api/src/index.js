@@ -78,6 +78,6 @@ const { run } = require('@app/services/automation');
 const testReccurence = '* * * * * *';
 
 //Each day at 03am
-const dailyReccurence = '0 5 * * * *';
+const dailyReccurence = '0 5 * * *';
 
 require('node-cron').schedule(dailyReccurence, run);

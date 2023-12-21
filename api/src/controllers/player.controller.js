@@ -8,8 +8,9 @@ const { log } = require('@app/services/logger')
 
 module.exports.test = async (req,res) => {
     try {
-        console.log("test");
-        res.status(200);
+        //sort 1 pour croissant et -1 decroissant
+        const result = await Player.find().sort({['moe']: -1});
+        res.status(200).json(result);
     }
     catch (err) {
         console.log(err);
@@ -22,7 +23,7 @@ module.exports.test = async (req,res) => {
 //Get all players, sorted by recent
 module.exports.getAll = async (req,res) => {
     try {
-        const all_players_sorted = await Player.find().sort('+ranking.recent');
+        const all_players_sorted = await Player.find().sort({['ranking.recent']: 1});
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
@@ -51,7 +52,7 @@ module.exports.getAllSorted = async (req,res) => {
         if (keys.includes(req.params.sortType)) 
             key = req.params.sortType;
 
-        const all_players_sorted = await Player.find().sort('+ranking.'+key);
+        const all_players_sorted = await Player.find().sort({[`ranking.${key}`]: 1});
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
@@ -67,7 +68,7 @@ module.exports.getTopN = async (req,res) => {
             res.status(400).json({ messge: "wrong limit value" });
             return
         }
-        const all_players_sorted = await Player.find().sort('+ranking.recent').limit(req.params.limit);
+        const all_players_sorted = await Player.find().sort({['ranking.recent']: 1 }).limit(req.params.limit);
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
@@ -79,6 +80,7 @@ module.exports.getTopN = async (req,res) => {
 //Get top players, sorted by sortType
 module.exports.getTopNSorted = async (req,res) => {
     try {
+        //to modify later
         if (!req.params.limit || req.params.limit < 1) {
             res.status(400).json({ messge: "wrong limit value" });
             return
@@ -88,7 +90,7 @@ module.exports.getTopNSorted = async (req,res) => {
         if (keys.includes(req.params.sortType)) 
             key = req.params.sortType;
 
-        const all_players_sorted = await Player.find().sort('+ranking.'+key).limit(req.params.limit);
+        const all_players_sorted = await Player.find().sort({[`ranking.${key}`]: 1}).limit(req.params.limit);
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
@@ -113,10 +115,7 @@ module.exports.getClanOfOne = async (req,res) => {
 
 module.exports.update = async (req,res) => {
     try {
-        const playersID = readFileSync("./src/database/csv/playersID.csv", {encoding: 'utf8'}).split("\n");
-
-        //Empty collection
-        await Player.deleteMany({});
+        const playersID = readFileSync("./src/database/csv/test.csv", {encoding: 'utf8'}).split("\n");
 
         let last_battle_limit = new Date();
         last_battle_limit.setMonth(last_battle_limit.getMonth()-1);
@@ -160,6 +159,9 @@ module.exports.update = async (req,res) => {
         const allPlayers_recentSort = sortByKey([...allPlayers], "recent");
         const allPlayers_overallSort = sortByKey([...allPlayers], "overall");
 
+        //Empty collection
+        await Player.deleteMany({});
+
         for (let i=0;i<allPlayers.length;i++) {
             allPlayers[i].ranking = {
                 recent: allPlayers_recentSort.indexOf(allPlayers[i])+1,
@@ -168,7 +170,10 @@ module.exports.update = async (req,res) => {
             }
             console.log(`(${i+1}/${allPlayers.length}) : SORTING`);
             const toAdd = new Player(allPlayers[i]);
-            toAdd.save();
+            toAdd.save().catch((error) => {
+                log(i)
+                log(error)
+            });
         }
         
         res.status(200).json();

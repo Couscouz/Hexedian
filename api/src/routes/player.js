@@ -5,7 +5,7 @@ const router = express.Router();
 router.get("/test", test);
 
 router.get("/", getAll);
-router.get("/:player_id", getOne);
+router.get("/getById/:player_id", getOne);
 router.get("/sort/:sortType", getAllSorted);
 router.get("/sort/:sortType/top/:limit", getTopNSorted);
 router.get("/top/:limit", getTopN);

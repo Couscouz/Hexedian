@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get("/", getAll);
-router.get("/:clan_id", getOne);
+router.get("/getById/:clan_id", getOne);
 router.get("/sort/:sortType", getAllSorted);
 router.get("/sort/:sortType/top/:limit", getTopNSorted)
 router.get("/top/:limit", getTopN);
