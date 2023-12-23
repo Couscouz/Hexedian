@@ -13,9 +13,6 @@ const PlayerLine = ({ index, player, rankingType }) => {
         <div className={rankingType}>
           <h2>{player[rankingType]}</h2>
         </div>
-        <div className="moe">
-          <h2>{player.moe}</h2>
-        </div>
       </div>
     </li>
   );
