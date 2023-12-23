@@ -1,14 +1,11 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const clanSchema = mongoose.Schema(
     {
         _id: Number,
         tag: { type: String, maxlength: 5 },
         logo: Buffer,
-        size: Number,
-        ranking: {
-            size: Number
-        }
+        size: { type: Number, index: true }
     },
     {
         timestamps: true,
@@ -16,4 +13,4 @@ const clanSchema = mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model('Clan', clanSchema)
+module.exports = mongoose.model('Clan', clanSchema);

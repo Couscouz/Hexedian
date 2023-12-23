@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PlayerLine from "./PlayerLine";
 import LoadingSpinner from "../LoadingSpinner";
+import FilterBar from "./FilterBar";
 
 const API_URL = "http://localhost:8080";
 
@@ -28,12 +29,12 @@ const Players = () => {
     return (    
 
         <div>
-            {isLoading ? <LoadingSpinner /> : <LoadingSpinner />}
-        <ul>
-            {players.map((player,index) => (
-                <PlayerLine index={index} player={player} rankingType={rankingType}/>
-            ))}
-        </ul>
+            <FilterBar />
+            <ul>
+                {players.map((player,index) => (
+                    <PlayerLine index={index} player={player} rankingType={rankingType}/>
+                ))}
+            </ul>
         </div>
     );
 };
