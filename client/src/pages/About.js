@@ -1,12 +1,12 @@
 import React from "react";
 import Logo from "../components/Logo";
-import Navigation from "../components/Navigation";
+import WarningBar from "../components/WarningBar";
 
 const About = () => {
   return (
     <div>
+      <WarningBar />
       <Logo />
-      {/* <Navigation /> */}
       <h1>A propos</h1>
       <br />
       <p>

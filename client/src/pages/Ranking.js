@@ -1,15 +1,15 @@
 import React from "react";
 import Logo from "../components/Logo";
-import Navigation from "../components/Navigation";
+import WarningBar from "../components/WarningBar";
 
-const Home = () => {
+const Ranking = () => {
   return (
     
     <div>
+      <WarningBar />
       <Logo />
-      {/* <Navigation /> */}
     </div>
   );
 };
 
-export default Home;
+export default Ranking;
