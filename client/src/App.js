@@ -5,7 +5,6 @@ import About from "./pages/About";
 
 const App = () => {
   return (
-    
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Ranking />} />
