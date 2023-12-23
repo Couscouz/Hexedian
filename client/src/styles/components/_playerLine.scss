@@ -1,4 +1,18 @@
 .playerLine {
-    background-color: purple;
-    color: white;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    
+    .infos {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        
+        .index, .name, .value, .moe {
+            flex-grow: 1;
+        }
+    }
 }
+  

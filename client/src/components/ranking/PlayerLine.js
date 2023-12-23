@@ -1,12 +1,21 @@
 import React from "react";
 
-const PlayerLine = ({ player }) => {
+const PlayerLine = ({ index, player, rankingType }) => {
   return (
     <li className="playerLine">
       <div className="infos">
-        <h2>{player.name}</h2>
-        <h2>{player.recent}</h2>
-        <h2>{player.moe}</h2>
+        <div className="index">
+          <h2>{index+1}</h2>
+        </div>
+        <div className="name">
+          <h2>{player.name}</h2>
+        </div>
+        <div className={rankingType}>
+          <h2>{player[rankingType]}</h2>
+        </div>
+        <div className="moe">
+          <h2>{player.moe}</h2>
+        </div>
       </div>
     </li>
   );

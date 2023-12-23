@@ -2,26 +2,25 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PlayerLine from "./PlayerLine";
 
-const API_URL = "localhost:3000/"
+const API_URL = "http://localhost:8080";
 
 const Players = () => {
     
     const [players, setPlayers] = useState([]);
+    const [size, setSize] = useState(5);
+
+    const [rankingType, setRankingType] = useState("recent");//recent-overall-moe
 
     useEffect(() => {
-        axios.get(API_URL+"players/sort/recent/top/5")
+        axios.get(API_URL+"/players/sort/moe").then(res => setPlayers(res.data))
     },[]);
-    
-    const aplayers = [
-        {name: "Hexedian", recent: 5000, moe: 150},
-        {name: "Tomato", recent: 2000, moe: 20}
-    ]
 
     return (
+
         <div>
         <ul>
             {players.map((player,index) => (
-            <PlayerLine key={index} player={player}/>
+                <PlayerLine index={index} player={player} rankingType={rankingType}/>
             ))}
         </ul>
         </div>
