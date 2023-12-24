@@ -18,8 +18,8 @@ const Players = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [rankingType, setRankingType] = useState("moe");//recent-overall-moe
-    const [size, setSize] = useState(50);
+    const [rankingType, setRankingType] = useState("recent");//recent-overall-moe
+    const [size, setSize] = useState(200);
 
     const handleSearchInputChange = (inputValue) => {
         // Vous pouvez faire quelque chose avec la valeur saisie ici
@@ -28,7 +28,7 @@ const Players = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get(API_URL+"/players/sort/"+rankingType).then(res => {
+        axios.get(API_URL+"/players/sort/"+rankingType+"/top/"+size).then(res => {
             setPlayers(res.data);
             setIsLoading(false);
         });
@@ -40,9 +40,25 @@ const Players = () => {
             <FilterBar />
             <h1>===={playerName}</h1>
             <ul>
-                {players.map((player,index) => (
-                    <PlayerLine index={index} player={player} rankingType={rankingType}/>
-                ))}
+                {playerName === "" ? 
+                    (
+                    players.map((player,index) => (
+                        <PlayerLine index={index} player={player} rankingType={rankingType}/>
+                    ))
+                    ) 
+                    : 
+                    (
+                    players.map((player, index) => ({ originalIndex: index, player }))
+                        .filter(item => item.player.name.includes(playerName))
+                        .map((filteredPlayer, index) => (
+                            <PlayerLine 
+                                index={filteredPlayer.originalIndex}
+                                player={filteredPlayer.player}
+                                rankingType={rankingType}
+                            />
+                    ))
+                    )
+                }
             </ul>
         </div>
     );

@@ -23,7 +23,7 @@ module.exports.test = async (req,res) => {
 //Get all players, sorted by recent
 module.exports.getAll = async (req,res) => {
     try {
-        const all_players_sorted = await Player.find().sort({['ranking.recent']: 1});
+        const all_players_sorted = await Player.find().sort({['recent']: -1});
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
@@ -52,7 +52,7 @@ module.exports.getAllSorted = async (req,res) => {
         if (keys.includes(req.params.sortType)) 
             key = req.params.sortType;
 
-        const all_players_sorted = await Player.find().sort({[`ranking.${key}`]: 1});
+        const all_players_sorted = await Player.find().sort({[key]: -1});
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
@@ -68,7 +68,7 @@ module.exports.getTopN = async (req,res) => {
             res.status(400).json({ messge: "wrong limit value" });
             return
         }
-        const all_players_sorted = await Player.find().sort({['ranking.recent']: 1 }).limit(req.params.limit);
+        const all_players_sorted = await Player.find().sort({['recent']: -1 }).limit(req.params.limit);
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
@@ -90,7 +90,7 @@ module.exports.getTopNSorted = async (req,res) => {
         if (keys.includes(req.params.sortType)) 
             key = req.params.sortType;
 
-        const all_players_sorted = await Player.find().sort({[`ranking.${key}`]: 1}).limit(req.params.limit);
+        const all_players_sorted = await Player.find().sort({[key]: -1}).limit(req.params.limit);
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
