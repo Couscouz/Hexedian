@@ -20,23 +20,33 @@ const Players = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [rankingType, setRankingType] = useState("recent");//recent-overall-moe
-    const [size, setSize] = useState(200);
+    const [rankingType, setRankingType] = useState("overall");//recent-overall-moe
+    const [size, setSize] = useState(100);
+
+    const onFilterChange = async (filter) => {
+        setRankingType(filter);
+    }   
 
     useEffect(() => {
-        setIsLoading(true);
         axios.get(API_URL+"/players/sort/"+rankingType+"/top/"+size).then(res => {
             setPlayers(res.data);
-            setIsLoading(false);
         });
+    }, [rankingType])
+
+    useEffect(() => {
+        // setIsLoading(true);
+        // axios.get(API_URL+"/players/sort/"+rankingType+"/top/"+size).then(res => {
+        //     setPlayers(res.data);
+        //     setIsLoading(false);
+        // });
         
     },[]);
 
     return (    
         <div>
             <SearchBar playerName={playerName} setPlayerName={setPlayerName}/>
-            <FilterBar rankingType={rankingType}/>
-            <h1>===={playerName}</h1>
+            <FilterBar rankingType={rankingType} setRankingType={setRankingType} onFilterChange={onFilterChange}/>
+            <h1>=={playerName}-{rankingType}</h1>
             <ul>
                 {playerName === "" ? 
                     (
