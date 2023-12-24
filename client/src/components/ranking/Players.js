@@ -21,7 +21,7 @@ const Players = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [rankingType, setRankingType] = useState("overall");//recent-overall-moe
-    const [size, setSize] = useState(100);
+    const [size, setSize] = useState(1000);
 
     const onFilterChange = async (filter) => {
         setRankingType(filter);

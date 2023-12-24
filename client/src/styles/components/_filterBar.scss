@@ -1,20 +1,26 @@
 .filterBar {
     display: flex;
-  }
+    background-color: green;
+    height: 60px;
+}
   
-  .filterBtn {
-    padding: 10px;
+.filterBtn {
+    padding: 1px;
+    width: 120px;
     margin: 0;
-    border: none;
+    border: solid;
+    border-color: $vintage-5;
+    background-color: $vintage-4;
+    color: $vintage-2;
     cursor: pointer;
-  
+
     &:not(:last-child) {
-      margin-right: 10px;
+      margin-right: 1px;
     }
-  
+
     &.selected {
-      background-color: #3498db; // Couleur lorsque le bouton est sélectionné
+      background-color: #0d47a1; // Couleur lorsque le bouton est sélectionné
       color: #fff; // Couleur du texte lorsque le bouton est sélectionné
     }
-  }
+}
   

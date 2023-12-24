@@ -7,8 +7,14 @@ $font-1: "font-1", sans-serif;
 
 $color-1: #61dafb;
 $color-2: salmon;
-$color-3: #282c34;
+$color-3: #333533;
 $white: rgb(243, 243, 243);
+
+$vintage-1: #cfdbd5;
+$vintage-2: #e8eddf;
+$vintage-3: #f5cb5c;
+$vintage-4: #242423;
+$vintage-5: #333533;
 
 @mixin verticalCenter {
   display: flex;

@@ -1,5 +1,24 @@
 .warningBar {
+    overflow-x: hidden;
     text-align: center;
-    background-color: skyblue;
-    color: red;
+    background-color: $vintage-3;
+    color: $vintage-4;
+    position: relative;
+
+    .warningBar-text {
+        animation: bounce 3s ease infinite;
+    }
+
+    &.paused .warningBar-text {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(30%);
+    }
+    50% {
+        transform: translateX(-30%);
+    }
 }
