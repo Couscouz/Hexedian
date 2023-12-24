@@ -103,3 +103,7 @@ module.exports.update = async (req,res) => {
         res.status(400);
     }
 }
+
+module.exports.deleteAll = async () => {
+    await Clan.deleteMany({});
+}

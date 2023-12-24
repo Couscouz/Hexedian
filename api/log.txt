@@ -60,3 +60,17 @@ starting 3h22
 24/12 6:27:20 INFO   : Error: read ECONNRESET
 24/12 7:9:21 INFO   : 556497103
 24/12 7:9:21 INFO   : AxiosError: Request failed with status code 404
+24/12 13:35:46 INFO   : 500601400
+24/12 13:35:46 INFO   : AxiosError: Request failed with status code 404
+24/12 14:17:24 INFO   : 526014550
+24/12 14:17:24 INFO   : AxiosError: Request failed with status code 404
+24/12 14:32:8 INFO   : 518487415
+24/12 14:32:8 INFO   : AxiosError: Request failed with status code 404
+24/12 14:43:3 INFO   : 521853156
+24/12 14:43:3 INFO   : AxiosError: Request failed with status code 404
+24/12 14:43:58 INFO   : 504469577
+24/12 14:43:58 INFO   : AxiosError: Request failed with status code 404
+24/12 14:52:42 INFO   : AxiosError: Request failed with status code 404
+24/12 14:52:42 INFO   : 563924926
+24/12 15:8:46 INFO   : 556497103
+24/12 15:8:46 INFO   : AxiosError: Request failed with status code 404

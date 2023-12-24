@@ -120,8 +120,6 @@ module.exports.update = async (req,res) => {
         let last_battle_limit = new Date();
         last_battle_limit.setMonth(last_battle_limit.getMonth()-1);
 
-        await Player.deleteMany({});
-        
         const size = playersID.length;
         let i=1;
         for (ID of playersID) {
@@ -160,4 +158,8 @@ module.exports.update = async (req,res) => {
         res.status(400);
     }
     
+}
+
+module.exports.deleteAll = async () => {
+    await Player.deleteMany({});
 }
