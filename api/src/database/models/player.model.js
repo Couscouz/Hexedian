@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const playerSchema = mongoose.Schema(
     {
         _id: Number,
-        name: String,
+        name: { type: String, index: true },
         recent: { type: Number, index: true },
         overall: { type: Number, index: true },
         moe: { type: Number, index: true },
