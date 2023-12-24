@@ -40,3 +40,23 @@ starting 3h22
 21/12 19:0:37 INFO   : ValidationError: _id: Cast to Number failed for value "NaN" (type number) at path "_id"
 21/12 19:2:7 INFO   : 2420
 21/12 19:2:7 INFO   : MongoNetworkTimeoutError: connection timed out
+24/12 1:8:0 INFO   : AxiosError: Request failed with status code 404
+24/12 1:8:0 INFO   : 500601400
+24/12 3:0:0 INFO   : Starting daily update
+24/12 3:0:0 INFO   : End of daily update
+24/12 3:7:43 INFO   : 546144557
+24/12 3:7:43 INFO   : Error: read ECONNRESET
+24/12 3:27:53 INFO   : 526014550
+24/12 3:27:53 INFO   : AxiosError: Request failed with status code 404
+24/12 4:12:50 INFO   : 518487415
+24/12 4:12:50 INFO   : AxiosError: Request failed with status code 404
+24/12 4:43:25 INFO   : 521853156
+24/12 4:43:25 INFO   : AxiosError: Request failed with status code 404
+24/12 4:46:4 INFO   : 504469577
+24/12 4:46:4 INFO   : AxiosError: Request failed with status code 404
+24/12 5:50:17 INFO   : 563924926
+24/12 5:50:17 INFO   : AxiosError: Request failed with status code 404
+24/12 6:27:20 INFO   : 551855930
+24/12 6:27:20 INFO   : Error: read ECONNRESET
+24/12 7:9:21 INFO   : 556497103
+24/12 7:9:21 INFO   : AxiosError: Request failed with status code 404

@@ -119,33 +119,32 @@ module.exports.update = async (req,res) => {
 
         let last_battle_limit = new Date();
         last_battle_limit.setMonth(last_battle_limit.getMonth()-1);
-        
-        const allPlayers = []
 
+        await Player.deleteMany({});
+        
         const size = playersID.length;
         let i=1;
         for (ID of playersID) {
             try {
                 const playerName = await WargamingAPI.getPlayerName_ByID(ID);
-            //const last_battle = await WargamingAPI.getDateOfLastBattle_ByID(ID);
+                //const last_battle = await WargamingAPI.getDateOfLastBattle_ByID(ID);
 
-            //check if player exists and played < 1 month
+                //check if player exists and played < 1 month
 
                 const clanIDofPlayer = await WargamingAPI.getClanID_ByPlayerID(ID);
                 const clanOfPlayer = await Clan.findOne({ _id: clanIDofPlayer });
 
                 const wn8 = await WotLifeAPI.getWN8(ID,playerName);
                 
-                const playerData = { 
+                const player = new Player({ 
                     _id: parseInt(ID),
                     name: playerName,
                     recent: wn8.recent,
                     overall: wn8.overall,
                     moe: await WargamingAPI.getNumberOf3moe_ByID(ID),
-                    clan: clanOfPlayer,
-                    ranking: {}
-                };
-                allPlayers.push(playerData)
+                    clan: clanOfPlayer
+                });
+                player.save();
             } catch (err) {
                 console.log(err);
                 log(ID)
@@ -155,28 +154,7 @@ module.exports.update = async (req,res) => {
             i++;
         }
 
-        const allPlayers_moeSort = sortByKey([...allPlayers],"moe");
-        const allPlayers_recentSort = sortByKey([...allPlayers], "recent");
-        const allPlayers_overallSort = sortByKey([...allPlayers], "overall");
-
-        //Empty collection
-        await Player.deleteMany({});
-
-        for (let i=0;i<allPlayers.length;i++) {
-            allPlayers[i].ranking = {
-                recent: allPlayers_recentSort.indexOf(allPlayers[i])+1,
-                overall: allPlayers_overallSort.indexOf(allPlayers[i])+1,
-                moe: allPlayers_moeSort.indexOf(allPlayers[i])+1
-            }
-            console.log(`(${i+1}/${allPlayers.length}) : SORTING`);
-            const toAdd = new Player(allPlayers[i]);
-            toAdd.save().catch((error) => {
-                log(i)
-                log(error)
-            });
-        }
-        
-        res.status(200).json();
+        res.status(200);
     } catch (err) {
         console.log(err);
         res.status(400);
