@@ -15,16 +15,13 @@ const Players = () => {
     
     const [players, setPlayers] = useState([]);
 
+    const [playersToPrint, setPlayersToPrint] = useState(players);
+
 
     const [isLoading, setIsLoading] = useState(false);
 
     const [rankingType, setRankingType] = useState("recent");//recent-overall-moe
     const [size, setSize] = useState(200);
-
-    const handleSearchInputChange = (inputValue) => {
-        // Vous pouvez faire quelque chose avec la valeur saisie ici
-        console.log("Input value changed:", inputValue);
-      };
 
     useEffect(() => {
         setIsLoading(true);
@@ -32,12 +29,13 @@ const Players = () => {
             setPlayers(res.data);
             setIsLoading(false);
         });
+        
     },[]);
 
     return (    
         <div>
-            <SearchBar playerName={playerName} setPlayerName={setPlayerName} onInputChange={handleSearchInputChange}/>
-            <FilterBar />
+            <SearchBar playerName={playerName} setPlayerName={setPlayerName}/>
+            <FilterBar rankingType={rankingType}/>
             <h1>===={playerName}</h1>
             <ul>
                 {playerName === "" ? 
