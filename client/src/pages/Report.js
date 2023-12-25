@@ -1,9 +1,14 @@
 import React from "react";
+import WarningBar from "../components/WarningBar";
 
 const Report = () => {
   return (
-    <div>
-      <h1>Report page</h1>
+    <div className="report">
+      <WarningBar />
+      <form>
+        <input type="text" required></input>
+        <button type="submit">Envoyer</button>
+      </form>
     </div>
   );
 };

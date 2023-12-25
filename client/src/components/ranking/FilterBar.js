@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchBar from './SearchBar';
 
 const FilterBar = ({rankingType,setRankingType,onFilterChange}) => {
     
@@ -9,6 +10,7 @@ const FilterBar = ({rankingType,setRankingType,onFilterChange}) => {
 
     return (
         <div className="filterBar">
+            <SearchBar />
             <button className={`filterBtn ${rankingType === 'recent' ? 'selected' : ''}`}
                     onClick={() => handleFilterClick("recent")}>Recent</button>
             <button className={`filterBtn ${rankingType === 'overall' ? 'selected' : ''}`}

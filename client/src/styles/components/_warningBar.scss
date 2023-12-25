@@ -1,12 +1,12 @@
 .warningBar {
     overflow-x: hidden;
     text-align: center;
-    background-color: $vintage-3;
-    color: $vintage-4;
+    background-color: black;
+    color: $rouge;
     position: relative;
 
     .warningBar-text {
-        animation: bounce 3s ease infinite;
+        animation: bounce 100s ease infinite;
     }
 
     &.paused .warningBar-text {
