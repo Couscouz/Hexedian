@@ -25,15 +25,16 @@ module.exports.writeAllPlayersID = (ids) => {
             i++
         }
     }
-    log(`${i} new players added to CSV players id`)
+    return i;
 }
 
 module.exports.update = async () => {
     const allClansID = this.readClansID();
 
+    //get all ids of players from all clans
     const newIDs = await ClanController.getAllPlayersOfClansID(allClansID);
-    log(`${newIDs.length} in French clans`);
 
     //writing new players ID
-    this.writeAllPlayersID(newIDs);
+    const added = this.writeAllPlayersID(newIDs);
+    return {inClans: newIDs.length, newPlayers: added}
 }
