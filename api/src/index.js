@@ -45,9 +45,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/players", require("@app/routes/player"))
-app.use("/clans", require("@app/routes/clan"))
-app.use("/data", require("@app/routes/data"))
+app.use("/players", require("@app/routes/player"));
+app.use("/clans", require("@app/routes/clan"));
+app.use("/data", require("@app/routes/data"));
+app.use("/report", require("@app/routes/report"));
 
 /*
 ROUTES

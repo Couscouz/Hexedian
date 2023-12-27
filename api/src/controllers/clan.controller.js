@@ -93,10 +93,19 @@ module.exports.getPlayersOfOne = async (req,res) => {
     }
 }
 
+module.exports.getAllPlayersOfClansID = async (ids) => {
+    const allIDs = [];
+    for (ID of ids) {
+        const clanIDs = WargamingAPI.getPlayersID_ByClanID(ID);
+        allIDs = allIDs.concat(clanIDs);
+    }
+    return allIDs;
+}
+
 //Update clans from CSV
-module.exports.update = async (req,res) => {
+module.exports.update = async (ids) => {
     try {
-       console.log("updating clans");
+       console.log("updating clans of ids");
     }   
     catch (err) {
         console.log(err);

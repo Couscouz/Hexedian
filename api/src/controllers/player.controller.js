@@ -5,12 +5,14 @@ const Clan = require('@app/database/models/clan.model')
 const { sortByKey } = require('@app/utils/tools');
 const WargamingAPI = require('@app/utils/api/wargaming');
 const WotLifeAPI = require('@app/utils/api/wotlife');
+const WotLabsAPI = require('@app/utils/api/wotlabs');
 const { log } = require('@app/services/logger');
 
 module.exports.test = async (req,res) => {
     try {
         //sort 1 pour croissant et -1 decroissant
-        const result = await Player.find().sort({['recent']: -1});
+        const name = "Couscouz_"
+        const result = await WotLabsAPI.getWN8(name);
         res.status(200).json(result);
     }
     catch (err) {

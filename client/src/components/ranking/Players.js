@@ -59,9 +59,9 @@ const Players = () => {
 
     return (    
         <div>
-            <div className="barLoader">
+            {/* <div className="barLoader">
             {loading && <BarLoader color={'#000000'} loading={loading} height={20} width={200} />}
-            </div>            
+            </div>             */}
             <Logo />
             <SearchBar playerName={playerName} setPlayerName={setPlayerName}/>
             <FilterBar rankingType={rankingType} setRankingType={setRankingType} setPlayers={setPlayers}/>

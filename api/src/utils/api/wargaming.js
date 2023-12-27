@@ -12,6 +12,21 @@ module.exports.getPlayerName_ByID = async (id) => {
     return name;
 }
 
+module.exports.getPlayersID_ByClanID = async (id) => {
+    let result = [];
+    const res = await fetch(`https://api.worldoftanks.eu/wot/clans/info/?application_id=${APPLICATION_ID}&clan_id=${id}`)
+        .then(response => response.json())
+        .then(content => {
+            if (content.data[id].members) {
+                const allMembers = content.data[id].members;
+                for (member of allMembers) {
+                    result.push(member.account_id);
+                }
+            }
+        });
+        return result;
+}
+
 
 //---------CLANS-SECTION--------------------
 
