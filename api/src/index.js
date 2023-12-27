@@ -84,4 +84,3 @@ const testReccurence = '* * * * * *';
 const dailyReccurence = '0 3 * * *';
 
 require('node-cron').schedule(dailyReccurence, run);
-app.use("/update", run)
