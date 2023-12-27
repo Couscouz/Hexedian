@@ -1,6 +1,7 @@
 const Player =  require('@app/database/models/player.model');
 const Clan =  require('@app/database/models/clan.model');
 const WargamingAPI = require('@app/utils/api/wargaming');
+const CSVController = require('@app/controllers/csv.controller');
 
 //Get all clans, sorted by size (/!\ to modify later)
 module.exports.getAll = async (req,res) => {
@@ -94,36 +95,29 @@ module.exports.getPlayersOfOne = async (req,res) => {
 }
 
 module.exports.getAllPlayersOfClansID = async (ids) => {
-    const allIDs = [];
+    let allIDs = [];
     for (ID of ids) {
-        const clanIDs = WargamingAPI.getPlayersID_ByClanID(ID);
+        const clanIDs = await WargamingAPI.getPlayersID_ByClanID(ID);
         allIDs = allIDs.concat(clanIDs);
+        console.log("all ids of "+ID);
     }
     return allIDs;
 }
 
-module.exports.update = async (clansID) => {
+module.exports.update = async () => {
     try {
+        const clansID = await CSVController.readClansID();
         const size = clansID.length;
         let i=1;
         for (ID of clansID) {
             try {
-                const ClanTag = await WargamingAPI.getPlayerName_ByID(ID);
-
-                const clanIDofPlayer = await WargamingAPI.getClanID_ByPlayerID(ID);
-                const clanOfPlayer = await Clan.findOne({ _id: clanIDofPlayer });
-
-                const wn8 = await WotLifeAPI.getWN8(ID,playerName);
-                
-                const player = new Clan({ 
+                const clan = new Clan({ 
                     _id: parseInt(ID),
-                    name: playerName,
-                    recent: wn8.recent,
-                    overall: wn8.overall,
-                    moe: await WargamingAPI.getNumberOf3moe_ByID(ID),
-                    clan: clanOfPlayer
+                    tag: await WargamingAPI.getClanName_ByID(ID),
+                    logo: null, //await WargamingAPI.getClanLogo_ByID,
+                    size: await WargamingAPI.getClanSize_ByID(ID)
                 });
-                player.save();
+                clan.save();
             } catch (err) {
                 console.log(err);
                 log(ID)
@@ -132,13 +126,9 @@ module.exports.update = async (clansID) => {
             console.log("("+i+"/"+size+") "+(100*i/size)+"%");
             i++;
         }
-
-        res.status(200);
     } catch (err) {
-        console.log(err);
-        res.status(400);
+        log(err);
     }
-    
 }
 
 module.exports.deleteAll = async () => {

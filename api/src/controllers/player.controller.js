@@ -151,11 +151,8 @@ module.exports.update = async (playersID) => {
             console.log("("+i+"/"+size+") "+(100*i/size)+"%");
             i++;
         }
-
-        res.status(200);
     } catch (err) {
-        console.log(err);
-        res.status(400);
+        log(err)
     }
     
 }

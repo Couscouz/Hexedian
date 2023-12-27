@@ -6,27 +6,16 @@ const CSVController = require('@app/controllers/csv.controller');
 module.exports.run = async () => {
     log("Starting daily update");
 
-    const allPlayersID = CSVController.readPlayersID();
-    const allClansID = CSVController.readClansID();
+    //update of both CSVs
+    await CSVController.update();
 
-    const newIDs = ClanController.getAllPlayersOfClansID(allClansID);
-    
-    const temp = newIDs.concat(allPlayersID);
-    const set = new Set(temp);
-    const newAllPlayersID = Array.from(set);
-
-    await CSVController.writeAllPlayersID(newAllPlayersID);
-
-    return;
+    //Empty database
     await PlayerController.deleteAll();
     await ClanController.deleteAll();
-    await ClanController.update(allClansID);
 
-    
 
-    //Update clans
-
-    //update players
+    await ClanController.update();
+    //await PlayerController.update();
 
     log("End of daily update");
 }
