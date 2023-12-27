@@ -102,15 +102,43 @@ module.exports.getAllPlayersOfClansID = async (ids) => {
     return allIDs;
 }
 
-//Update clans from CSV
-module.exports.update = async (ids) => {
+module.exports.update = async (clansID) => {
     try {
-       console.log("updating clans of ids");
-    }   
-    catch (err) {
+        const size = clansID.length;
+        let i=1;
+        for (ID of clansID) {
+            try {
+                const ClanTag = await WargamingAPI.getPlayerName_ByID(ID);
+
+                const clanIDofPlayer = await WargamingAPI.getClanID_ByPlayerID(ID);
+                const clanOfPlayer = await Clan.findOne({ _id: clanIDofPlayer });
+
+                const wn8 = await WotLifeAPI.getWN8(ID,playerName);
+                
+                const player = new Clan({ 
+                    _id: parseInt(ID),
+                    name: playerName,
+                    recent: wn8.recent,
+                    overall: wn8.overall,
+                    moe: await WargamingAPI.getNumberOf3moe_ByID(ID),
+                    clan: clanOfPlayer
+                });
+                player.save();
+            } catch (err) {
+                console.log(err);
+                log(ID)
+                log(err)
+            }
+            console.log("("+i+"/"+size+") "+(100*i/size)+"%");
+            i++;
+        }
+
+        res.status(200);
+    } catch (err) {
         console.log(err);
         res.status(400);
     }
+    
 }
 
 module.exports.deleteAll = async () => {

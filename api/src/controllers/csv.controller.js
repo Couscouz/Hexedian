@@ -14,9 +14,11 @@ module.exports.readClansID = () => {
 }
 
 module.exports.writeAllPlayersID = (ids) => {
+    const allreadyIn = this.readPlayersID();
     for(id of ids) {
-        appendFile(playersIDpath, id+"\n", (err) => {
-            log(err)
+        if (!allreadyIn.includes(id))
+            appendFile(playersIDpath, id+"\n", (err) => {
+                log(err)
         });
     }
 }

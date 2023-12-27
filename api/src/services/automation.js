@@ -17,10 +17,12 @@ module.exports.run = async () => {
 
     await CSVController.writeAllPlayersID(newAllPlayersID);
 
-    await ClanController.update(allClansID);
-
+    return;
     await PlayerController.deleteAll();
     await ClanController.deleteAll();
+    await ClanController.update(allClansID);
+
+    
 
     //Update clans
 

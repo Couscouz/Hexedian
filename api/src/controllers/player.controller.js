@@ -121,21 +121,13 @@ module.exports.getClanOfOne = async (req,res) => {
 
 //--------------------------
 
-module.exports.update = async (req,res) => {
+module.exports.update = async (playersID) => {
     try {
-        const playersID = readFileSync("./src/database/csv/playersID.csv", {encoding: 'utf8'}).split("\n");
-
-        let last_battle_limit = new Date();
-        last_battle_limit.setMonth(last_battle_limit.getMonth()-1);
-
         const size = playersID.length;
         let i=1;
         for (ID of playersID) {
             try {
                 const playerName = await WargamingAPI.getPlayerName_ByID(ID);
-                //const last_battle = await WargamingAPI.getDateOfLastBattle_ByID(ID);
-
-                //check if player exists and played < 1 month
 
                 const clanIDofPlayer = await WargamingAPI.getClanID_ByPlayerID(ID);
                 const clanOfPlayer = await Clan.findOne({ _id: clanIDofPlayer });
