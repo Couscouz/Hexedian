@@ -1,10 +1,10 @@
 import React from 'react';
 
-const FilterBar = ({rankingType,setRankingType,onFilterChange}) => {
+const FilterBar = ({rankingType,setRankingType,setPlayers}) => {
     
     const handleFilterClick = (filter) => {
-        onFilterChange(filter);
         setRankingType(filter);
+        setPlayers([]);
     };
 
     return (

@@ -24,7 +24,12 @@ module.exports.test = async (req,res) => {
 //Get all players, sorted by recent
 module.exports.getAll = async (req,res) => {
     try {
-        const all_players_sorted = await Player.find().sort({['recent']: -1});
+        const sortType = req.query.sort || "recent";
+        const section = parseInt(req.query.section) || 1;
+        const limit = parseInt(req.query.limit) || 100;
+        const skipIndex = (section - 1) * limit;
+
+        const all_players_sorted = await Player.find().sort({[sortType]: -1}).limit(limit).skip(skipIndex);
         res.status(200).json(all_players_sorted);
     }   
     catch (err) {
