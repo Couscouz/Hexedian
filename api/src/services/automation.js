@@ -12,3 +12,7 @@ module.exports.run = async () => {
     log("End of daily update");
 }
 
+
+module.exports.sendDailyReport = async () => {
+    
+}

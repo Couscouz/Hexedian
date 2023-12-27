@@ -74,3 +74,7 @@ starting 3h22
 24/12 14:52:42 INFO   : 563924926
 24/12 15:8:46 INFO   : 556497103
 24/12 15:8:46 INFO   : AxiosError: Request failed with status code 404
+25/12 10:57:11 INFO   : Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ay14-20020a05600c1e0e00b0040c6ab53cd2sm17106584wmb.10 - gsmtp
+25/12 11:7:51 INFO   : Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials t18-20020a0560001a5200b0033699668c2dsm6458011wry.32 - gsmtp

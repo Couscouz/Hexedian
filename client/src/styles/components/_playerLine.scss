@@ -1,8 +1,11 @@
 .playerLine {
     list-style-type: none;
-    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0;
     color: $vintage-1;
+    width: 50%;
+    text-align: center;
     
     .infos {
         display: flex;
@@ -12,4 +15,10 @@
         margin-bottom: 10px;
     }
 }
-  
+
+.playerLine:hover {
+    color: red;
+    width: 60%;
+    height: 10%;
+    font-size: 1.2em;
+}

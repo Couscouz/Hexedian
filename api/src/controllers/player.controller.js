@@ -1,10 +1,11 @@
+const nodemailer = require('nodemailer');
+const { readFileSync } = require('fs');
 const Player = require('@app/database/models/player.model');
 const Clan = require('@app/database/models/clan.model')
 const { sortByKey } = require('@app/utils/tools');
-const { readFileSync } = require('fs');
 const WargamingAPI = require('@app/utils/api/wargaming');
 const WotLifeAPI = require('@app/utils/api/wotlife');
-const { log } = require('@app/services/logger')
+const { log } = require('@app/services/logger');
 
 module.exports.test = async (req,res) => {
     try {
@@ -162,4 +163,26 @@ module.exports.update = async (req,res) => {
 
 module.exports.deleteAll = async () => {
     await Player.deleteMany({});
+}
+
+module.exports.sendReport = async (req,res) => {
+    const reportText = req.params.content;
+    const reportSubject = `[REPORT] - Test`;
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.GMAIL_HXD_USER,
+            pass: process.env.GMAIL_HXD_PW
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.GMAIL_HXD_USER,
+        to: process.env.GMAIL_HXD_USER,
+        subject: reportSubject,
+        text: reportText
+    };
+    console.log("la");
+    transporter.sendMail(mailOptions, (err) => log(err));
 }

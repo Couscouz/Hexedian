@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import BarLoader from "react-spinners/BarLoader";
 import axios from "axios";
 import PlayerLine from "./PlayerLine";
-import LoadingSpinner from "../LoadingSpinner";
 import FilterBar from "./FilterBar";
 import SearchBar from "./SearchBar";
+import Logo from "../Logo";
 
 const API_URL = "http://localhost:8080";
 
@@ -18,40 +19,42 @@ const Players = () => {
     const [playersToPrint, setPlayersToPrint] = useState(players);
 
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const [rankingType, setRankingType] = useState("overall");//recent-overall-moe
+    const [rankingType, setRankingType] = useState("recent");//recent-overall-moe
     const [size, setSize] = useState(1000);
 
-    const onFilterChange = async (filter) => {
-        setRankingType(filter);
-    }   
+    const onFilterChange = async (newType) => {
+        setPlayers([]);
+        setLoading(true);
+        axios.get(API_URL+"/players/sort/"+newType+"/top/"+size).then(res => {
+            setPlayers(res.data);
+            setRankingType(newType);
+            setLoading(false);
+        });
+    };
 
     useEffect(() => {
+        setLoading(true);
         axios.get(API_URL+"/players/sort/"+rankingType+"/top/"+size).then(res => {
             setPlayers(res.data);
+            setLoading(false);
         });
-    }, [rankingType])
-
-    useEffect(() => {
-        // setIsLoading(true);
-        // axios.get(API_URL+"/players/sort/"+rankingType+"/top/"+size).then(res => {
-        //     setPlayers(res.data);
-        //     setIsLoading(false);
-        // });
-        
     },[]);
 
     return (    
         <div>
-            <SearchBar playerName={playerName} setPlayerName={setPlayerName}/>
+            <div className="barLoader">
+            {loading && <BarLoader color={'#000000'} loading={loading} height={20} width={200} />}
+            </div>
+            <Logo />
+            {/* <SearchBar playerName={playerName} setPlayerName={setPlayerName}/> */}
             <FilterBar rankingType={rankingType} setRankingType={setRankingType} onFilterChange={onFilterChange}/>
-            <h1>=={playerName}-{rankingType}</h1>
             <ul>
                 {playerName === "" ? 
                     (
                     players.map((player,index) => (
-                        <PlayerLine index={index} player={player} rankingType={rankingType}/>
+                        <PlayerLine key={index} index={index} player={player} rankingType={rankingType}/>
                     ))
                     ) 
                     : 
@@ -60,6 +63,7 @@ const Players = () => {
                         .filter(item => item.player.name.includes(playerName))
                         .map((filteredPlayer, index) => (
                             <PlayerLine 
+                                key={index}
                                 index={filteredPlayer.originalIndex}
                                 player={filteredPlayer.player}
                                 rankingType={rankingType}

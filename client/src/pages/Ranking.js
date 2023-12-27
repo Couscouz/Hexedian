@@ -10,7 +10,7 @@ const Ranking = () => {
             {/* <Menu /> */}
             <div className='ranking-content'>
                 <WarningBar />
-                <Logo />
+                {/* <Logo /> */}
                 <Players />
             </div>
         </div>

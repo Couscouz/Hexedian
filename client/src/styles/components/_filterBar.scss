@@ -1,13 +1,15 @@
 .filterBar {
-    display: flex;
-    background-color: green;
-    height: 60px;
+    text-align: center;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: auto;
+    margin-right: auto;
 }
   
 .filterBtn {
     padding: 1px;
     width: 120px;
-    margin: 0;
+    height: 60px;
     border: solid;
     border-color: $vintage-5;
     background-color: $vintage-4;

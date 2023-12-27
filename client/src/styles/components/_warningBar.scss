@@ -6,7 +6,7 @@
     position: relative;
 
     .warningBar-text {
-        animation: bounce 100s ease infinite;
+        animation: bounce 0s ease infinite;
     }
 
     &.paused .warningBar-text {

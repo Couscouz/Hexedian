@@ -1,18 +1,21 @@
 .logo {
-  @include verticalCenter;
-  margin: 5px auto;
-  width: 70px;
-  border-radius: 20px;
-  padding: 5px 0;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.307);
-  background: white;
-  //background: url(../../assets/img/red_rect.jpeg) center/cover;
-
+  // @include verticalCenter;
+  // margin: 5px auto;
+  // width: 70px;
+  // border-radius: 20px;
+  // padding: 5px 0;
+  // box-shadow: 0 2px 3px rgba(0, 0, 0, 0.307);
+  // background: white;
+  // //background: url(../../assets/img/red_rect.jpeg) center/cover;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   img {
-    height: 40px;
+    height: 10%;
+    width: 10%;
   }
-  h3 {
-    margin-left: 10px;
-    color: $color-3;
-  }
+  // h3 {
+  //   margin-left: 10px;
+  //   color: $color-3;
+  // }
 }
