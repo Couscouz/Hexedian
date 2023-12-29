@@ -30,7 +30,7 @@ jobs:
         npm run build
 
     - name: FTP Sync files
-      uses: Couscouz/Hexedian@1.0
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
         server: ${{ secrets.GIT_CPANEL_PWD }}
         username: ${{ secrets.GIT_CPANEL_USER }}
