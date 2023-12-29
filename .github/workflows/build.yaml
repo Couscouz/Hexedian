@@ -2,10 +2,15 @@ name: Deploy App on
 
 on:
   push:
-    branches: 
-      - master
+    branches:
+      - 'master'
+  pull_request:
+    branches:
+      - 'master'
+    types: [closed]
 
 jobs:
+  if: github.event.pull_request.merged == true
   web-deploy:
     name: Deploy
     runs-on: ubuntu-latest
