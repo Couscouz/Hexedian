@@ -33,7 +33,7 @@ jobs:
       uses: Couscouz/Hexedian@1.0
       with:
         server: ${{ secrets.GIT_CPANEL_REACT_SERVER }}
-        username: ${{ secrets.GIT_CPANEL_REACT_USER }}
-        password: ${{ secrets.GIT_CPANEL_REACT_PWD }}
-        protocol: ${{ secrets.GIT_CPANEL_REACT_PROTOCOL }}
+        username: ${{ secrets.GIT_CPANEL_USER }}
+        password: ${{ secrets.GIT_CPANEL_PWD }}
+        protocol: ${{ secrets.GIT_CPANEL_PROTOCOL }}
         local-dir: ./client/build/
