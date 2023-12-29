@@ -30,9 +30,9 @@ jobs:
         npm run build
 
     - name: FTP Sync files
-      uses: Couscouz/FTP-Deploy-Action@3.1.1
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
-        ftp-server: ${{ secrets.GIT_CPANEL_PWD }}
-        ftp-username: ${{ secrets.GIT_CPANEL_USER }}
-        ftp-password: ${{ secrets.GIT_CPANEL_PWD }}
+        server: ${{ secrets.GIT_CPANEL_PWD }}
+        username: ${{ secrets.GIT_CPANEL_USER }}
+        password: ${{ secrets.GIT_CPANEL_PWD }}
         local-dir: ./client/build/
