@@ -1,21 +1,28 @@
-name: Build React App
+name: Deploy App on 
 
-on: [push]  # Ce workflow se déclenche lors d'un push
+on:
+  push:
+    branches: 
+      - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  # Système d'exploitation à utiliser
-
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2  # Vérifie le code source du dépôt
+    - name: Get latest code
+      uses: actions/checkout@v3
     
     - name: Set up Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
-        node-version: '14'  # Spécifiez la version de Node.js
+        node-version: '16'
 
     - name: Install dependencies and build
       run: |
         cd client  # Navigue dans le dossier 'client'
         npm install  # Installe les dépendances
         npm run build  # Exécute la commande de build
+
+    - name: Sync files
+      uses: 
