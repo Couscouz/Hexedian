@@ -3,6 +3,7 @@ name: Build React App
 on: [push]  # Ce workflow se déclenche lors d'un push
 
 jobs:
+  if: github.event.pull_request.merged == true
   build:
     runs-on: ubuntu-latest  # Système d'exploitation à utiliser
 
