@@ -10,7 +10,6 @@ on:
     types: [closed]
 
 jobs:
-  if: github.event.pull_request.merged == true
   web-deploy:
     name: Deploy
     runs-on: ubuntu-latest
