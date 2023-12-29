@@ -29,11 +29,10 @@ jobs:
         npm install
         npm run build
 
-    - name: Sync files
+    - name: FTP Sync files
       uses: Couscouz/Hexedian@1.0
       with:
-        server: ${{ secrets.GIT_CPANEL_REACT_SERVER }}
+        server: ${{ secrets.GIT_CPANEL_PWD }}
         username: ${{ secrets.GIT_CPANEL_USER }}
         password: ${{ secrets.GIT_CPANEL_PWD }}
-        protocol: ${{ secrets.GIT_CPANEL_PROTOCOL }}
         local-dir: ./client/build/
