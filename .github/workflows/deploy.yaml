@@ -1,9 +1,6 @@
 name: Deploy App on CPanel
 
 on:
-  push:
-    branches:
-      - 'master'
   pull_request:
     branches:
       - 'master'
@@ -11,8 +8,9 @@ on:
 
 jobs:
   web-deploy:
-    name: Deploy
+    name: Deploy to CPanel
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
     steps:
     - name: Get latest code
       uses: actions/checkout@v3
