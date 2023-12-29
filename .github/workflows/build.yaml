@@ -30,9 +30,9 @@ jobs:
         npm run build
 
     - name: FTP Sync files
-      uses: Couscouz/Hexedian@1.0
+      uses: Couscouz/FTP-Deploy-Action@3.1.1
       with:
-        server: ${{ secrets.GIT_CPANEL_PWD }}
-        username: ${{ secrets.GIT_CPANEL_USER }}
-        password: ${{ secrets.GIT_CPANEL_PWD }}
+        ftp-server: ${{ secrets.GIT_CPANEL_PWD }}
+        ftp-username: ${{ secrets.GIT_CPANEL_USER }}
+        ftp-password: ${{ secrets.GIT_CPANEL_PWD }}
         local-dir: ./client/build/
