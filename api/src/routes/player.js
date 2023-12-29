@@ -1,11 +1,12 @@
 const { test,getAll,getOne,getAllSorted,getTopNSorted,getTopN,getClanOfOne,update,deleteAll,sendReport } = require('@app/controllers/player.controller');
 const express = require('express');
-const { getSectionSorted } = require('../controllers/player.controller');
+const { getSectionSorted, getNumber } = require('../controllers/player.controller');
 const router = express.Router();
 
 router.get("/test", test);
 
 router.get("/", getAll);
+router.get("/number", getNumber);
 router.get("/getById/:player_id", getOne);
 router.get("/sort/:sortType", getAllSorted);
 router.get("/sort/:sortType/top/:limit", getTopNSorted);

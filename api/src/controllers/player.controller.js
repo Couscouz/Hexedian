@@ -33,8 +33,17 @@ module.exports.getAll = async (req,res) => {
 
         const all_players_sorted = await Player.find().sort({[sortType]: -1}).limit(limit).skip(skipIndex);
         res.status(200).json(all_players_sorted);
-    }   
-    catch (err) {
+    } catch (err) {
+        console.log(err);
+        res.status(400)
+    }
+}
+
+module.exports.getNumber = async (req,res) => {
+    try {
+        const number = await Player.countDocuments({ isDeleted: false });
+        res.status(200).json(number);
+    } catch (err) {
         console.log(err);
         res.status(400)
     }

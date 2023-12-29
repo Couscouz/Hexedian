@@ -1,8 +1,9 @@
-const { getAll,getOne,getAllSorted,getTopNSorted,getTopN,getPlayersOfOne,update } = require('@app/controllers/clan.controller');
+const { getAll,getNumber,getOne,getAllSorted,getTopNSorted,getTopN,getPlayersOfOne,update } = require('@app/controllers/clan.controller');
 const express = require('express');
 const router = express.Router();
 
 router.get("/", getAll);
+router.get("/number", getNumber);
 router.get("/getById/:clan_id", getOne);
 router.get("/sort/:sortType", getAllSorted);
 router.get("/sort/:sortType/top/:limit", getTopNSorted)

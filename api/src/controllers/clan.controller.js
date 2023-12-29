@@ -15,6 +15,16 @@ module.exports.getAll = async (req,res) => {
     }
 }
 
+module.exports.getNumber = async (req,res) => {
+    try {
+        const number = await Clan.countDocuments({ isDeleted: false });
+        res.status(200).json(number);
+    } catch (err) {
+        console.log(err);
+        res.status(400)
+    }
+}
+
 //Get one clan by id
 module.exports.getOne = async (req,res) => {
     try {

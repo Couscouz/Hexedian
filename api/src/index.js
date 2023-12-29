@@ -26,8 +26,6 @@ app.use(express.json({ limit: '50mb' }));
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.hexedian.fr');
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   // Request methods you wish to allow
@@ -49,6 +47,7 @@ app.use("/players", require("@app/routes/player"));
 app.use("/clans", require("@app/routes/clan"));
 app.use("/data", require("@app/routes/data"));
 app.use("/report", require("@app/routes/report"));
+app.get("/test", (req,res) => {res.json({message: "Acces API ok"})});
 
 /*
 ROUTES

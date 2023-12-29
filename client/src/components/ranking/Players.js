@@ -24,7 +24,7 @@ const Players = () => {
     const loadMore = async () => {
         setLoading(true);
         console.log("players.l="+players.length);
-        await axios.get(`https://hexedian.fr/players?sort=${rankingType}&section=${section+1}&limit=${sectionSize}`).then(res => {
+        await axios.get(`https://backend.hexedian.fr/players?sort=${rankingType}&section=${section+1}&limit=${sectionSize}`).then(res => {
             setPlayers(prev => [...prev, ...res.data]);
         })
         .finally(() => setLoading(false));
