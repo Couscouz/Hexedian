@@ -29,10 +29,10 @@ jobs:
         npm install
         npm run build
 
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.3.4
-      with:
-        server: ${{ secrets.GIT_CPANEL_PWD }}
-        username: ${{ secrets.GIT_CPANEL_USER }}
-        password: ${{ secrets.GIT_CPANEL_PWD }}
-        local-dir: ./client/build/
+    # - name: 📂 Sync files
+    #   uses: SamKirkland/FTP-Deploy-Action@4.3.4
+    #   with:
+    #     server: ${{ secrets.GIT_CPANEL_PWD }}
+    #     username: ${{ secrets.GIT_CPANEL_USER }}
+    #     password: ${{ secrets.GIT_CPANEL_PWD }}
+    #     local-dir: ./client/build/
