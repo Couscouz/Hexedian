@@ -3,6 +3,8 @@ import axios from "axios";
 import Logo from "../components/Logo";
 import WarningBar from "../components/WarningBar";
 
+const API_URL = process.env.REACT_APP_API_URL || "https://backend.hexedian.fr";
+
 const Report = () => {
     const [formData, setFormData] = useState({ message: ''});
     const [status, setStatus] = useState("");
@@ -16,7 +18,7 @@ const Report = () => {
         try {
             if (formData.message.length < 2) return;
             setStatus("Envoi du report en cours ...");
-            await axios.post(process.env.REACT_APP_API_URL+'/report/new', formData).then(
+            await axios.post(API_URL+'/report/new', formData).then(
               setStatus("Report envoyé avec succès, merci !")
             )
         } catch (error) {
