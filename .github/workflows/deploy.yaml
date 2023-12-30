@@ -27,9 +27,10 @@ jobs:
         npm run build
 
     - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      uses: SamKirkland/web-deploy@v1
       with:
-        server: ${{ secrets.GIT_CPANEL_PWD }}
-        username: ${{ secrets.GIT_CPANEL_USER }}
-        password: ${{ secrets.GIT_CPANEL_PWD }}
-        local-dir: ./client/build/
+        target-server: hexedian.fr
+        remote-user: luju9145
+        private-ssh-key: ${{ secrets.SSH_KEY }}
+        destination-path: ./frontend.hexedian.fr/
+        source-path: ./client/build/
