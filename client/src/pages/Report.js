@@ -15,11 +15,13 @@ const Report = () => {
         e.preventDefault();
         try {
             if (formData.message.length < 2) return;
-            setStatus("Report envoyé avec succès, merci !");
-            await axios.post(process.env.REACT_APP_API_URL+'/report/new', formData);
+            setStatus("Envoi du report en cours ...");
+            await axios.post(process.env.REACT_APP_API_URL+'/report/new', formData).then(
+              setStatus("Report envoyé avec succès, merci !")
+            )
         } catch (error) {
             setStatus("Problème avec l'envoi du report");
-            console.error(error);
+            console.log(error);
         }
     };
 
@@ -27,6 +29,7 @@ const Report = () => {
     <div className="report">
       <WarningBar />
       <Logo />
+      {process.env.REACT_APP_API_URL}
       <form onSubmit={handleSubmit}>
             <textarea
                 type="text"
