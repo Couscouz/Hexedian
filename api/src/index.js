@@ -1,10 +1,10 @@
 require('dotenv').config()
-
-const express = require('express')
-const connectDB = require('./database/db')
-const helmet = require('helmet')
-const morgan = require('morgan')
-const cors = require('cors')
+const { log } = require('./services/logger');
+const express = require('express');
+const connectDB = require('./database/db');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3000
 
@@ -46,7 +46,7 @@ app.use("/players", require("./routes/player"));
 app.use("/clans", require("./routes/clan"));
 app.use("/data", require("./routes/data"));
 app.use("/report", require("./routes/report"));
-app.get("/test", (req,res) => {res.json({message: "Acces API ok"})});
+app.get("/test", (req,res) => {res.json({message: "Acces API ok, | env variable : "+process.env.TEST})});
 
 /*
 ROUTES
@@ -70,6 +70,7 @@ const http = require('http').createServer(app);
 http.listen(PORT);
 
 console.log("API running on port " + PORT)
+log("API running on port " + PORT)
 
 //---------DAILY-TRIGGER-------------
 
