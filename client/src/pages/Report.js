@@ -16,7 +16,7 @@ const Report = () => {
         try {
             if (formData.message.length < 2) return;
             setStatus("Report envoyé avec succès, merci !");
-            await axios.post('http://localhost:8080/report/new', formData);
+            await axios.post(process.env.REACT_APP_API_URL+'/report/new', formData);
         } catch (error) {
           setStatus("Problème avec l'envoi du report");
             console.error('Erreur lors de l\'envoi du report');
