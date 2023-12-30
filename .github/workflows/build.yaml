@@ -33,8 +33,3 @@ jobs:
         username: ${{ secrets.FTP_FRONT_USER }}
         password: ${{ secrets.FTP_FRONT_PWD }}
         local-dir: ./client/build/
-        exclude: |
-          **/.git*
-          **/.git*/**
-          .htaccess
-          .ftp*
