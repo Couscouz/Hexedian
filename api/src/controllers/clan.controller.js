@@ -1,7 +1,7 @@
-const Player =  require('@app/database/models/player.model');
-const Clan =  require('@app/database/models/clan.model');
-const WargamingAPI = require('@app/utils/api/wargaming');
-const CSVController = require('@app/controllers/csv.controller');
+const Player =  require('../database/models/player.model');
+const Clan =  require('../database/models/clan.model');
+const WargamingAPI = require('../utils/api/wargaming');
+const CSVController = require('../controllers/csv.controller');
 
 //Get all clans, sorted by size (/!\ to modify later)
 module.exports.getAll = async (req,res) => {

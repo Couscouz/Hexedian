@@ -1,7 +1,7 @@
-const { log } = require('@app/services/logger');
-const PlayerController = require('@app/controllers/player.controller');
-const ClanController = require('@app/controllers/clan.controller');
-const CSVController = require('@app/controllers/csv.controller');
+const { log } = require('./logger');
+const PlayerController = require('../controllers/player.controller')
+const ClanController = require('../controllers/clan.controller');
+const CSVController = require('../controllers/csv.controller');
 
 module.exports.run = async () => {
     log("Starting daily update");

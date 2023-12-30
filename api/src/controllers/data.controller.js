@@ -1,10 +1,10 @@
 
 const { readFileSync } = require('fs');
-const Clan = require('@app/database/models/clan.model');
-const Player = require('@app/database/models/player.model');
-const WargamingAPI = require('@app/utils/api/wargaming');
-const WotLifeAPI = require('@app/utils/api/wotlife');
-const { sortByKey } = require('@app/utils/tools');
+const Clan = require('../database/models/clan.model');
+const Player = require('../database/models/player.model');
+const WargamingAPI = require('../utils/api/wargaming');
+const WotLifeAPI = require('../utils/api/wotlife');
+const { sortByKey } = require('../utils/tools');
 
 module.exports.test = async (req,res) => {
     try {

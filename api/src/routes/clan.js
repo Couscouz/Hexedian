@@ -1,4 +1,4 @@
-const { getAll,getNumber,getOne,getAllSorted,getTopNSorted,getTopN,getPlayersOfOne,update } = require('@app/controllers/clan.controller');
+const { getAll,getNumber,getOne,getAllSorted,getTopNSorted,getTopN,getPlayersOfOne,update } = require('../controllers/clan.controller');
 const express = require('express');
 const router = express.Router();
 

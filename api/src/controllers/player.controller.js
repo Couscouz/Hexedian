@@ -1,12 +1,12 @@
 const nodemailer = require('nodemailer');
 const { readFileSync } = require('fs');
-const Player = require('@app/database/models/player.model');
-const Clan = require('@app/database/models/clan.model')
-const { sortByKey } = require('@app/utils/tools');
-const WargamingAPI = require('@app/utils/api/wargaming');
-const WotLifeAPI = require('@app/utils/api/wotlife');
-const WotLabsAPI = require('@app/utils/api/wotlabs');
-const { log } = require('@app/services/logger');
+const Player = require('../database/models/player.model');
+const Clan = require('../database/models/clan.model')
+const { sortByKey } = require('../utils/tools');
+const WargamingAPI = require('../utils/api/wargaming');
+const WotLifeAPI = require('../utils/api/wotlife');
+const WotLabsAPI = require('../utils/api/wotlabs');
+const { log } = require('../services/logger');
 
 module.exports.test = async (req,res) => {
     try {

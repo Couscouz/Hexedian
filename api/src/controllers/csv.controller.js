@@ -1,5 +1,5 @@
 const { readFileSync, appendFile } = require('fs');
-const ClanController = require('@app/controllers/clan.controller');
+const ClanController = require('../controllers/clan.controller');
 const { log } = require('../services/logger');
 const playersIDpath = "./src/database/csv/playersID.csv";
 const clansIDpath = "./src/database/csv/clansID.csv";
