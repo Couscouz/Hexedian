@@ -25,12 +25,3 @@ jobs:
         cd client
         npm install
         npm run build
-
-    - name: 📂 Sync files
-      uses: SamKirkland/web-deploy@v1
-      with:
-        target-server: hexedian.fr
-        remote-user: luju9145
-        private-ssh-key: ${{ secrets.SSH_KEY }}
-        destination-path: ./frontend.hexedian.fr/
-        source-path: ./client/build/
