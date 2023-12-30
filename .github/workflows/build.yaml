@@ -25,10 +25,10 @@ jobs:
         cd client
         npm install
         npm run build
-    - name: Commit and push build files
-      run: |
-        git config --global user.email "rem.couzi@gmail.com"
-        git config --global user.name "Couscouz"
-        git add client/build
-        git commit -m "Add build files"
-        git push
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: hexedian.fr
+        username: ftp-github@hexedian.fr
+        password: ${{ secrets.GIT_CPANEL_SERVER }}
