@@ -1,4 +1,4 @@
-const { report } = require("@app/services/logger");
+const { report } = require("../services/logger");
 
 module.exports.createReport = async (req,res) => {
     try {

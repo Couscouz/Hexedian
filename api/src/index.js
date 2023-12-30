@@ -1,8 +1,7 @@
-require('module-alias/register')
 require('dotenv').config()
 
 const express = require('express')
-const connectDB = require('@app/database/db')
+const connectDB = require('./database/db')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const cors = require('cors')
@@ -43,10 +42,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/players", require("@app/routes/player"));
-app.use("/clans", require("@app/routes/clan"));
-app.use("/data", require("@app/routes/data"));
-app.use("/report", require("@app/routes/report"));
+app.use("/players", require("./routes/player"));
+app.use("/clans", require("./routes/clan"));
+app.use("/data", require("./routes/data"));
+app.use("/report", require("./routes/report"));
 app.get("/test", (req,res) => {res.json({message: "Acces API ok"})});
 
 /*
@@ -74,7 +73,7 @@ console.log("API running on port " + PORT)
 
 //---------DAILY-TRIGGER-------------
 
-const { run } = require('@app/services/automation');
+const { run } = require('./services/automation');
 
 //Each second
 const testReccurence = '* * * * * *';

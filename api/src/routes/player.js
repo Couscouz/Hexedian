@@ -1,6 +1,5 @@
-const { test,getAll,getOne,getAllSorted,getTopNSorted,getTopN,getClanOfOne,update,deleteAll,sendReport } = require('@app/controllers/player.controller');
+const { test,getAll,getSectionSorted, getNumber,getOne,getAllSorted,getTopNSorted,getTopN,getClanOfOne,update,deleteAll,sendReport } = require('../controllers/player.controller');
 const express = require('express');
-const { getSectionSorted, getNumber } = require('../controllers/player.controller');
 const router = express.Router();
 
 router.get("/test", test);
