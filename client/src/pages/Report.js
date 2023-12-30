@@ -29,7 +29,7 @@ const Report = () => {
     <div className="report">
       <WarningBar />
       <Logo />
-      {process.env.REACT_APP_API_URL}
+      <h2>API={process.env.REACT_APP_API_URL}</h2>
       <form onSubmit={handleSubmit}>
             <textarea
                 type="text"
