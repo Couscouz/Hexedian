@@ -32,5 +32,4 @@ jobs:
         server: hexedian.fr
         username: ftp-github@hexedian.fr
         password: ${{ secrets.GIT_CPANEL_SERVER }}
-        protocol: sftp
-        port: 22
+        protocol: ftps
