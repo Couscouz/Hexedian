@@ -30,5 +30,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: hexedian.fr
-        username: ftp-github@hexedian.tld
+        username: ftp-github@hexedian.fr
         password: ${{ secrets.GIT_CPANEL_SERVER }}
+        protocol: sftp
+        port: 22
