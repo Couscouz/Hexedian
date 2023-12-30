@@ -1,6 +1,6 @@
 const { appendFile } = require('fs');
 const logFilePath = process.env.LOG_FILE_PATH || 'log.txt';
-const reportFilePath = 'report.txt';
+const reportFilePath = process.env.REPORT_FILE_PATH || 'report.txt';
 
 module.exports.log = (status,type='INFO') => {
     const date = new Date();
