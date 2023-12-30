@@ -1,5 +1,5 @@
 const { appendFile } = require('fs');
-const logFilePath = 'log.txt';
+const logFilePath = process.env.LOG_FILE_PATH || 'log.txt';
 const reportFilePath = 'report.txt';
 
 module.exports.log = (status,type='INFO') => {
