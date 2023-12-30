@@ -31,5 +31,4 @@ jobs:
       with:
         server: hexedian.fr
         username: ftp-github@hexedian.fr
-        password: ${{ secrets.GIT_CPANEL_SERVER }}
-        protocol: ftps
+        password: ${{ secrets.GIT_CPANEL_PWD }}
