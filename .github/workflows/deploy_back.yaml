@@ -1,0 +1,24 @@
+name: Deploy Back on CPanel
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+    types: [closed]
+
+jobs:
+  web-deploy:
+    name: Deploy Back to CPanel
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    steps:
+    - name: Get latest code
+      uses: actions/checkout@v3
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: hexedian.fr
+        username: ${{ secrets.FTP_BACK_USER }}
+        password: ${{ secrets.FTP_BACK_PWD }}
+        local-dir: ./api/
