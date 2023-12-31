@@ -17,15 +17,15 @@ const app = express()
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(helmet())
-app.use(cors())
+app.use(cors());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.text());
 app.use(express.json({ limit: '50mb' }));
 
 // Add headers before the routes are defined
-app.use(function (req, res, next) {
+/*app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'https://hexedian.fr');
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -40,7 +40,7 @@ app.use(function (req, res, next) {
 
   // Pass to next layer of middleware
   next();
-});
+});*/
 
 app.use("/players", require("./routes/player"));
 app.use("/clans", require("./routes/clan"));
